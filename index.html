@@ -11,26 +11,48 @@
             font-family: 'Segoe UI', sans-serif; 
             background: #fff4e6; text-align: center; 
         }
-        header { padding: 60px 20px; background: #4b3832; color: white; }
+        header { 
+            padding: 60px 20px; 
+            background: #4b3832; 
+            color: white;
+            border-bottom: 5px solid #be9b7b;
+        }
         .logo { font-size: 32px; font-weight: bold; margin-bottom: 10px; }
         
-        .menu-grid { padding: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
+        .menu-grid { 
+            padding: 30px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            max-width: 400px; 
+            margin: 0 auto; 
+        }
         
         .btn-categoria {
-            background: white; color: #4b3832; padding: 25px;
-            border-radius: 15px; text-decoration: none; font-weight: bold;
-            font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex; align-items: center; justify-content: center; gap: 15px;
+            background: white; 
+            color: #4b3832; 
+            padding: 25px;
+            border-radius: 15px; 
+            text-decoration: none; 
+            font-weight: bold;
+            font-size: 20px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px;
             border: 2px solid #be9b7b;
+            transition: transform 0.2s;
         }
-        .btn-categoria i { color: #854442; }
+        .btn-categoria:active { transform: scale(0.95); }
+        .btn-categoria i { color: #854442; font-size: 24px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">CoffeArt</div>
-    <p>Escolha uma categoria abaixo</p>
+    <div class="logo">CoffeArt Cafeteria</div>
+    <p>O que você deseja ver agora?</p>
 </header>
 
 <div class="menu-grid">
@@ -44,6 +66,10 @@
         <i class="fas fa-mug-hot"></i> BEBIDAS
     </a>
 </div>
+
+<p style="color: #999; font-size: 14px; margin-top: 20px;">
+    Toque em uma categoria para abrir
+</p>
 
 </body>
 </html>
