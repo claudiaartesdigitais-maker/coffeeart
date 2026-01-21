@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu CoffeArt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { 
+            margin: 0; padding: 0; 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #fff4e6; text-align: center; 
+        }
+        header { padding: 60px 20px; background: #4b3832; color: white; }
+        .logo { font-size: 32px; font-weight: bold; margin-bottom: 10px; }
+        
+        .menu-grid { padding: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
+        
+        .btn-categoria {
+            background: white; color: #4b3832; padding: 25px;
+            border-radius: 15px; text-decoration: none; font-weight: bold;
+            font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            border: 2px solid #be9b7b;
+        }
+        .btn-categoria i { color: #854442; }
+    </style>
+</head>
+<body>
 
+<header>
+    <div class="logo">CoffeArt</div>
+    <p>Escolha uma categoria abaixo</p>
+</header>
+
+<div class="menu-grid">
+    <a href="doces.html" class="btn-categoria">
+        <i class="fas fa-cake-candles"></i> DOCES
+    </a>
+    <a href="salgados.html" class="btn-categoria">
+        <i class="fas fa-bread-slice"></i> SALGADOS
+    </a>
+    <a href="bebidas.html" class="btn-categoria">
+        <i class="fas fa-mug-hot"></i> BEBIDAS
+    </a>
+</div>
+
+</body>
+</html>
