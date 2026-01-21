@@ -12,31 +12,25 @@
         .voltar-btn { display: inline-block; margin: 15px; text-decoration: none; color: var(--cafe-dark); font-weight: bold; }
         .categoria-header { text-align: center; padding: 15px; background: var(--accent); color: white; font-weight: bold; text-transform: uppercase; }
         
-        .item-card { background: white; border-radius: 12px; margin: 10px 15px; padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .topo-item { display: flex; align-items: center; gap: 15px; }
-        .item-foto { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; background: #f9f9f9; }
+        .item-card { background: white; border-radius: 12px; margin: 10px 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
-        .item-info { flex: 1; }
-        .item-nome { font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); }
-        .item-preco-base { font-weight: bold; color: var(--cafe-mid); font-size: 1.1rem; display: block; margin-top: 5px; }
+        /* Bloco superior com Foto, Nome e Preço Principal */
+        .bloco-principal { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+        .item-foto { width: 90px; height: 90px; border-radius: 12px; object-fit: cover; background: #eee; }
+        .item-nome { font-weight: bold; font-size: 1.2rem; color: var(--cafe-dark); display: block; }
+        .item-preco-base { font-weight: 900; color: #27ae60; font-size: 1.4rem; display: block; margin-top: 5px; }
         
-        /* Estilo para a parte dos adicionais */
-        .secao-adicional { 
-            background: #fdf8f3; 
-            border-left: 3px solid var(--accent); 
-            padding: 8px 12px; 
-            margin-top: 5px; 
-            border-radius: 4px;
-        }
-        .adicional-titulo { font-size: 0.8rem; text-transform: uppercase; color: #888; font-weight: bold; display: block; }
-        .adicional-texto { font-size: 0.9rem; color: #555; font-style: italic; }
-        .preco-total { font-weight: bold; color: #27ae60; font-size: 1rem; display: block; margin-top: 5px; }
+        /* Bloco de Adicionais e Totais */
+        .bloco-detalhes { padding: 10px; background: #fafafa; border-radius: 8px; border-top: 1px dashed #ddd; }
+        .linha-adicional { font-size: 0.95rem; color: #555; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .linha-total { font-size: 1rem; font-weight: bold; color: var(--cafe-dark); border-top: 1px solid #eee; pt: 5px; margin-top: 5px; display: flex; justify-content: space-between; }
+        .texto-adicional { font-style: italic; color: var(--cafe-mid); }
     </style>
 </head>
 <body>
 
 <header><h1>CoffeArt Cafeteria</h1></header>
-<a href="index.html" class="voltar-btn"><i class="fas fa-arrow-left"></i> Voltar</a>
+<a href="index.html" class="voltar-btn"><i class="fas fa-arrow-left"></i> Voltar ao Menu</a>
 <div id="categoria-nome" class="categoria-header">Carregando...</div>
 <div id="menu-container"></div>
 
@@ -61,40 +55,45 @@
                     if (catPlanilha === CATEGORIA_PARA_FILTRAR) {
                         const nome = cols[1]?.replace(/"/g, '').trim();
                         const precoBase = cols[2]?.replace(/"/g, '').trim();
-                        const sugestao = cols[3]?.replace(/"/g, '').trim();
+                        const adicionalDesc = cols[3]?.replace(/"/g, '').trim();
                         const precoAdicional = cols[4]?.replace(/"/g, '').trim();
                         const precoTotal = cols[5]?.replace(/"/g, '').trim();
-                        const foto = cols[6]?.replace(/"/g, '').trim(); // Presumindo que a foto é a coluna G
+                        const foto = cols[6]?.replace(/"/g, '').trim();
 
-                        let htmlAdicional = "";
-                        // Só mostra a seção de adicional se houver algo escrito na Coluna D
-                        if (sugestao && sugestao !== "") {
-                            htmlAdicional = `
-                                <div class="secao-adicional">
-                                    <span class="adicional-titulo">Sugestão de Adicional:</span>
-                                    <span class="adicional-texto">${sugestao} (+ R$ ${precoAdicional})</span>
-                                    <span class="preco-total">Total com Adicional: R$ ${precoTotal}</span>
+                        // Só cria o bloco de adicional se a Coluna D não estiver vazia
+                        let htmlExtras = "";
+                        if (adicionalDesc && adicionalDesc.toLowerCase() !== "não consta" && adicionalDesc !== "") {
+                            htmlExtras = `
+                                <div class="bloco-detalhes">
+                                    <div class="linha-adicional">
+                                        <span class="texto-adicional">Sugestão: ${adicionalDesc}</span>
+                                        <span>+ R$ ${precoAdicional}</span>
+                                    </div>
+                                    <div class="linha-total">
+                                        <span>Total com adicional:</span>
+                                        <span>R$ ${precoTotal}</span>
+                                    </div>
                                 </div>
                             `;
                         }
 
                         container.innerHTML += `
                             <div class="item-card">
-                                <div class="topo-item">
-                                    ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center;background:#eee"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
+                                <div class="bloco-principal">
+                                    ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
                                     <div class="item-info">
                                         <span class="item-nome">${nome}</span>
                                         <span class="item-preco-base">R$ ${precoBase}</span>
                                     </div>
                                 </div>
-                                ${htmlAdicional}
+                                ${htmlExtras}
                             </div>
                         `;
                     }
                 }
             });
         } catch (e) {
-            container.innerHTML = '<p style="text-align:center">Erro ao carregar dados.</p>';
+            container.innerHTML = '<p style="text-align:center; padding:20px;">Erro ao carregar a planilha.</p>';
         }
     }
     fetchMenu();
