@@ -1,51 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu CoffeArt</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --cafe-dark: #4b3832; --cafe-mid: #854442; --cafe-light: #fff4e6; --accent: #be9b7b; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--cafe-light); color: var(--cafe-dark); padding-bottom: 30px; }
-        header { text-align: center; padding: 20px; background: var(--cafe-dark); color: white; border-bottom: 5px solid var(--accent); }
-        .voltar-btn { display: inline-block; margin: 15px; text-decoration: none; color: var(--cafe-dark); font-weight: bold; }
-        
-        .item-card { 
-            background: white; border-radius: 12px; margin: 10px 15px; padding: 15px; 
-            display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-        }
-        
-        .topo-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
-        .item-foto { width: 85px; height: 85px; border-radius: 10px; object-fit: cover; background: #eee; }
-        .item-info { flex: 1; }
-        
-        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); display: block; }
-        .item-preco-base { font-weight: 800; color: #27ae60; font-size: 1.3rem; display: block; margin-top: 4px; }
-
-        /* Estilo para as linhas de adicionais embaixo */
-        .bloco-adicionais { 
-            border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 5px;
-        }
-        .linha-sugestao { font-size: 0.95rem; color: var(--cafe-mid); margin-bottom: 4px; font-weight: 500; }
-        .linha-valor-adicional { font-size: 0.95rem; color: #666; margin-bottom: 8px; }
-        .linha-total { 
-            font-size: 1.05rem; font-weight: bold; color: white;
-            background: var(--cafe-dark); padding: 8px 12px; border-radius: 6px;
-            display: flex; justify-content: space-between;
-        }
-    </style>
-</head>
-<body>
-
-<header><h1>CoffeArt Cafeteria</h1></header>
-<a href="index.html" class="voltar-btn"><i class="fas fa-arrow-left"></i> Voltar ao Menu</a>
-
-<div id="menu-container"></div>
-
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
     const CATEGORIA_PARA_FILTRAR = "DOCES"; 
+
+    // Função para garantir que o preço não venha duplicado ou com R$ extras
+    function limparPreco(valor) {
+        if (!valor) return "";
+        // Remove "R$", espaços e aspas se houver
+        return valor.replace(/R\$/g, '').replace(/"/g, '').trim();
+    }
 
     async function fetchMenu() {
         try {
@@ -62,22 +24,24 @@
                     
                     if (catPlanilha === CATEGORIA_PARA_FILTRAR) {
                         const nome = cols[1]?.replace(/"/g, '').trim();
-                        const precoBase = cols[2]?.replace(/"/g, '').trim(); // Já vem com R$ da planilha
+                        
+                        // LIMPEZA AQUI:
+                        const precoBase = limparPreco(cols[2]);
                         const sugestao = cols[3]?.replace(/"/g, '').trim();
-                        const precoAdicional = cols[4]?.replace(/"/g, '').trim(); // Já vem com R$ da planilha
-                        const precoTotal = cols[5]?.replace(/"/g, '').trim(); // Já vem com R$ da planilha
+                        const precoAdicional = limparPreco(cols[4]);
+                        const precoTotal = limparPreco(cols[5]);
+                        
                         const foto = cols[6]?.replace(/"/g, '').trim();
 
                         let htmlAdicional = "";
-                        // Verifica se existe sugestão válida
                         if (sugestao && sugestao.toLowerCase() !== "não consta" && sugestao.trim() !== "") {
                             htmlAdicional = `
                                 <div class="bloco-adicionais">
                                     <div class="linha-sugestao">Sugestão: ${sugestao}</div>
-                                    <div class="linha-valor-adicional">Valor do adicional: ${precoAdicional}</div>
+                                    <div class="linha-valor-adicional">Valor do adicional: R$ ${precoAdicional}</div>
                                     <div class="linha-total">
                                         <span>Total com adicional</span>
-                                        <span>${precoTotal}</span>
+                                        <span>R$ ${precoTotal}</span>
                                     </div>
                                 </div>
                             `;
@@ -89,7 +53,7 @@
                                     ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
                                     <div class="item-info">
                                         <span class="item-nome">${nome}</span>
-                                        <span class="item-preco-base">${precoBase}</span>
+                                        <span class="item-preco-base">R$ ${precoBase}</span>
                                     </div>
                                 </div>
                                 ${htmlAdicional}
@@ -99,10 +63,8 @@
                 }
             });
         } catch (e) {
-            container.innerHTML = '<p style="text-align:center; padding:20px;">Erro ao carregar cardápio.</p>';
+            container.innerHTML = '<p style="text-align:center; padding:20px;">Atualizando cardápio...</p>';
         }
     }
     fetchMenu();
 </script>
-</body>
-</html>
