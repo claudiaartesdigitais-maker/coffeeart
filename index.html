@@ -9,7 +9,7 @@
         :root { 
             --cafe-dark: #755437; 
             --cafe-light: #fff4e6; 
-            --accent: #be9b7b; /* Laranja/Bege da marca */
+            --accent: #be9b7b; 
         }
 
         html, body {
@@ -23,7 +23,6 @@
 
         * { box-sizing: border-box; }
         
-        /* HEADER */
         header { 
             text-align: center; 
             padding: 10px; 
@@ -41,7 +40,6 @@
         .logo-img { max-width: 80px; height: auto; margin-bottom: 5px; }
         h1 { margin: 0; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* BARRA VOLTAR FIXA */
         .controles-topo { 
             padding: 15px; 
             background: #fdf8f3; 
@@ -55,7 +53,6 @@
 
         .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
 
-        /* TELA DE CATEGORIAS (CAPA) */
         #tela-categorias { 
             padding-top: 150px; 
             width: 100%;
@@ -66,11 +63,10 @@
             padding-bottom: 50px;
         }
 
-        /* BOTÃO DA CATEGORIA - TEXTO PRETO */
         .btn-categoria { 
             display: flex; align-items: center; justify-content: space-between; 
             background: white; 
-            color: #000000; /* Texto preto na capa */
+            color: #000000; 
             padding: 22px 20px; 
             border-radius: 12px; 
             font-size: 1.4rem; 
@@ -80,24 +76,23 @@
             cursor: pointer;
         }
 
-        /* TELA DE PRODUTOS (LÁ DENTRO) */
         #menu-container { padding-top: 195px; }
         .item-card { background: white; border-radius: 12px; margin: 12px 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
         .topo-item { display: flex; align-items: center; gap: 15px; }
         .item-foto { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #f0f0f0; }
         
-        /* NOME DO PRODUTO - LARANJA E MAIOR */
+        /* AJUSTE: NOME DO PRODUTO EM PRETO E NEGRITO */
         .item-nome { 
             font-weight: bold; 
             font-size: 1.25rem; 
-            color: var(--accent); 
+            color: #000000; 
             display: block; 
         }
 
-        /* PREÇO - SEM NEGRITO */
+        /* AJUSTE: PREÇO EM PRETO E SEM NEGRITO */
         .item-preco-base { 
             font-weight: 400; 
-            color: var(--cafe-dark); 
+            color: #000000; 
             font-size: 1.3rem; 
             display: block; margin-top: 4px; 
         }
@@ -106,7 +101,6 @@
         
         #tela-produtos { display: none; width: 100%; }
 
-        /* BOTÃO DE FIM - LARANJA E AFASTADO */
         .btn-fim { 
             display: flex; align-items: center; justify-content: center; 
             margin: 50px 15px 80px 15px; 
@@ -118,6 +112,7 @@
             cursor: pointer; 
             box-shadow: 0 4px 12px rgba(190, 155, 123, 0.3);
             text-transform: uppercase;
+            border: none;
         }
     </style>
 </head>
