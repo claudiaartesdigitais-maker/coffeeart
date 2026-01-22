@@ -10,10 +10,6 @@
             --cafe-dark: #755437; 
             --cafe-light: #fff4e6; 
             --accent: #be9b7b; 
-            
-            /* --- CONFIGURAÇÃO DA DISTÂNCIA DO TOPO (SUA SETA AZUL) --- */
-            --distancia-topo: 700px; 
-            /* Altere o valor acima para empurrar a faixa marrom para baixo */
         }
 
         html, body {
@@ -22,57 +18,49 @@
             width: 100%;
             background-color: var(--cafe-light);
             font-family: 'Segoe UI', Roboto, sans-serif;
+            -webkit-overflow-scrolling: touch;
         }
 
         * { box-sizing: border-box; }
-
-        /* ESPAÇO QUE EMPURRA TUDO PARA BAIXO */
-        body {
-            padding-top: var(--distancia-topo) !important;
-        }
         
-        /* CABEÇALHO (FAIXA MARROM) */
         header { 
             text-align: center; 
+            padding: 10px; 
             background: var(--cafe-dark); 
             color: white; 
             border-bottom: 5px solid var(--accent); 
             width: 100%;
-            height: 120px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center;
-            z-index: 999;
-            position: relative; /* Ele agora segue o fluxo da página */
+            position: fixed; 
+            top: 0; left: 0;
+            z-index: 9999;
+            height: 130px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
 
-        .logo-img { max-width: 75px; height: auto; margin-bottom: 5px; }
+        .logo-img { max-width: 80px; height: auto; margin-bottom: 5px; }
         h1 { margin: 0; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* BARRA DE VOLTAR (FICA FIXA NO TOPO QUANDO VOCÊ ROLA) */
         .controles-topo { 
             padding: 15px; 
             background: #fdf8f3; 
             border-bottom: 1px solid #eee; 
             width: 100%;
-            position: sticky; /* Gruda no topo ao rolar */
-            top: 0;
-            z-index: 1000;
+            position: fixed;
+            top: 130px; left: 0;
+            z-index: 9998;
             display: none;
         }
 
         .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
 
-        /* LISTA DE CATEGORIAS (CAPA) */
         #tela-categorias { 
-            padding: 20px 15px 50px 15px;
+            padding-top: 150px; 
             width: 100%;
             max-width: 500px; 
             margin: 0 auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
+            padding-left: 15px; padding-right: 15px;
+            display: flex; flex-direction: column; gap: 15px; 
+            padding-bottom: 50px;
         }
 
         .btn-categoria { 
@@ -88,15 +76,26 @@
             cursor: pointer;
         }
 
-        /* LISTA DE PRODUTOS */
-        #menu-container { padding-bottom: 30px; }
-
+        #menu-container { padding-top: 195px; }
         .item-card { background: white; border-radius: 12px; margin: 12px 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
         .topo-item { display: flex; align-items: center; gap: 15px; }
         .item-foto { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #f0f0f0; }
         
-        .item-nome { font-weight: bold; font-size: 1.25rem; color: #000000; display: block; }
-        .item-preco-base { font-weight: 400; color: #000000; font-size: 1.3rem; display: block; margin-top: 4px; }
+        /* AJUSTE: NOME DO PRODUTO EM PRETO E NEGRITO */
+        .item-nome { 
+            font-weight: bold; 
+            font-size: 1.25rem; 
+            color: #000000; 
+            display: block; 
+        }
+
+        /* AJUSTE: PREÇO EM PRETO E SEM NEGRITO */
+        .item-preco-base { 
+            font-weight: 400; 
+            color: #000000; 
+            font-size: 1.3rem; 
+            display: block; margin-top: 4px; 
+        }
 
         .linha-total { font-size: 1.1rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 8px; }
         
@@ -104,13 +103,14 @@
 
         .btn-fim { 
             display: flex; align-items: center; justify-content: center; 
-            margin: 40px 15px 80px 15px; 
+            margin: 50px 15px 80px 15px; 
             padding: 18px; 
             background-color: var(--accent); 
             color: white; 
             border-radius: 50px; 
             font-weight: bold; font-size: 1.1rem; 
             cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(190, 155, 123, 0.3);
             text-transform: uppercase;
             border: none;
         }
@@ -216,7 +216,7 @@
                     container.innerHTML += `
                         <div class="item-card">
                             <div class="topo-item">
-                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-camera" style="color:#ddd; font-size:2rem"></i></div>'}
+                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-camera" style="color:#ddd"></i></div>'}
                                 <div class="item-info">
                                     <span class="item-nome">${nome}</span>
                                     <span class="item-preco-base">R$ ${preco}</span>
@@ -233,7 +233,7 @@
         document.getElementById('tela-produtos').style.display = 'none';
         document.getElementById('barra-voltar-fixa').style.display = 'none';
         document.getElementById('tela-categorias').style.display = 'flex';
-        window.scrollTo(0, 0); // Volta para onde a faixa marrom começa
+        window.scrollTo(0,0);
     }
 </script>
 </body>
