@@ -40,7 +40,7 @@
             color: var(--accent);
         }
 
-        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; }
+        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; }
 
         .menu-container {
             width: 90%;
@@ -51,6 +51,7 @@
             gap: 15px;
         }
 
+        /* Botões sem target para manter o link do PedidoOn */
         .btn-categoria {
             display: flex;
             align-items: center;
@@ -84,17 +85,17 @@
 </header>
 
 <div class="menu-container">
-    <a href="doces.html" target="_parent" class="btn-categoria">
+    <a href="doces.html" class="btn-categoria">
         <span><i class="fas fa-cookie-bite" style="margin-right: 15px;"></i> DOCES</span>
         <i class="fas fa-chevron-right"></i>
     </a>
 
-    <a href="salgados.html" target="_parent" class="btn-categoria">
+    <a href="salgados.html" class="btn-categoria">
         <span><i class="fas fa-utensils" style="margin-right: 15px;"></i> SALGADOS</span>
         <i class="fas fa-chevron-right"></i>
     </a>
 
-    <a href="bebidas.html" target="_parent" class="btn-categoria">
+    <a href="bebidas.html" class="btn-categoria">
         <span><i class="fas fa-mug-hot" style="margin-right: 15px;"></i> BEBIDAS</span>
         <i class="fas fa-chevron-right"></i>
     </a>
