@@ -8,7 +8,6 @@
     <style>
         :root { 
             --cafe-dark: #755437; 
-            --cafe-mid: #854442; 
             --cafe-light: #fff4e6; 
             --accent: #be9b7b; 
         }
@@ -16,15 +15,13 @@
         html, body {
             margin: 0 !important;
             padding: 0 !important;
-            width: 100% !important;
+            width: 100%;
             background-color: var(--cafe-light);
-            /* Importante para o sticky funcionar */
-            overflow-x: hidden;
+            /* Evita que o scroll do celular "pule" */
+            -webkit-overflow-scrolling: touch;
         }
 
-        * { box-sizing: border-box; }
-        
-        /* HEADER CONGELADO */
+        /* HEADER FIXO REAL (FIXED) */
         header { 
             text-align: center; 
             padding: 15px 10px; 
@@ -32,14 +29,15 @@
             color: white; 
             border-bottom: 5px solid var(--accent); 
             width: 100%;
-            position: -webkit-sticky; /* Suporte para Safari */
-            position: sticky;
+            position: fixed; /* Força fixação total */
             top: 0;
-            z-index: 1001;
+            left: 0;
+            z-index: 9999;
+            height: 120px; /* Altura fixa para controle */
         }
 
         .logo-img {
-            max-width: 110px;
+            max-width: 90px;
             height: auto;
             margin-bottom: 5px;
             display: block;
@@ -47,31 +45,39 @@
             margin-right: auto;
         }
 
-        h1 { margin: 0; font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; }
+        h1 { margin: 0; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* BARRA VOLTAR CONGELADA */
+        /* BARRA VOLTAR FIXA */
         .controles-topo { 
             padding: 12px 15px; 
             background: #fdf8f3; 
             border-bottom: 1px solid #eee; 
             width: 100%;
-            position: -webkit-sticky;
-            position: sticky;
-            top: 135px; /* Fica logo abaixo do header marrom */
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 120px; /* Começa exatamente onde o header termina */
+            left: 0;
+            z-index: 9998;
+            display: none; /* Só aparece quando entra em categoria */
         }
 
+        /* ESPAÇADORES (PADDING-TOP) - Essencial para o conteúdo não sumir atrás do fixo */
         #tela-categorias { 
+            padding-top: 140px; /* Espaço do header fixo */
             width: 100%;
             max-width: 500px; 
-            margin: 20px auto; 
-            padding: 0 15px;
+            margin: 0 auto; 
+            padding-left: 15px;
+            padding-right: 15px;
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
         }
 
+        #menu-container {
+            padding-top: 180px; /* Espaço do header + barra voltar */
+        }
+
+        /* ESTILOS DE CATEGORIAS E PRODUTOS */
         .btn-categoria { 
             display: flex; 
             align-items: center; 
@@ -88,7 +94,6 @@
 
         .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
         
-        /* CARDS DOS PRODUTOS */
         .item-card { 
             background: white; 
             border-radius: 12px; 
@@ -113,7 +118,7 @@
 </head>
 <body>
 
-<header id="main-header">
+<header>
     <img src="./Logotipo.png" alt="Logo CoffeArt" class="logo-img">
     <h1>COFFEART</h1>
 </header>
@@ -134,7 +139,7 @@
 </div>
 
 <div id="tela-produtos">
-    <div class="controles-topo" id="bar-voltar">
+    <div class="controles-topo" id="barra-fixa-voltar">
         <div class="voltar-btn" onclick="voltarParaCategorias()">
             <i class="fas fa-arrow-left"></i> Voltar ao Menu
         </div>
@@ -148,22 +153,13 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
 
-    // Calcula a posição da barra de voltar automaticamente
-    function ajustarBarraFixa() {
-        const headerH = document.getElementById('main-header').offsetHeight;
-        const barraV = document.getElementById('bar-voltar');
-        barraV.style.top = (headerH - 1) + 'px'; // -1 para evitar frestas
-    }
-
     function limpar(t) { return t ? t.replace(/"/g, '').replace(/R\$/g, '').trim() : ""; }
 
     async function carregarCategoria(categoria) {
         const container = document.getElementById('menu-container');
         document.getElementById('tela-categorias').style.display = 'none';
         document.getElementById('tela-produtos').style.display = 'block';
-        
-        // Garante que a barra fixe no lugar certo após mudar de tela
-        setTimeout(ajustarBarraFixa, 10);
+        document.getElementById('barra-fixa-voltar').style.display = 'block';
         
         container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando...</p>';
         window.scrollTo(0,0);
@@ -191,11 +187,10 @@
 
     function voltarParaCategorias() {
         document.getElementById('tela-produtos').style.display = 'none';
+        document.getElementById('barra-fixa-voltar').style.display = 'none';
         document.getElementById('tela-categorias').style.display = 'flex';
         window.scrollTo(0,0);
     }
-    
-    window.onload = ajustarBarraFixa;
 </script>
 </body>
 </html>
