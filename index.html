@@ -2,59 +2,101 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Menu CoffeArt</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
-            --cafe-dark: #4b3832; 
+            --cafe-dark: #755437; /* Sua cor personalizada */
             --cafe-mid: #854442; 
             --cafe-light: #fff4e6; 
             --accent: #be9b7b; 
         }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--cafe-light); color: var(--cafe-dark); padding-bottom: 50px; }
-        header { text-align: center; padding: 20px; background: var(--cafe-dark); color: white; border-bottom: 5px solid var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        
-        /* TELA 1: MENU DE CATEGORIAS */
-        #tela-categorias { width: 90%; max-width: 400px; margin: 30px auto; display: flex; flex-direction: column; gap: 15px; }
-        .btn-categoria { 
-            display: flex; align-items: center; justify-content: space-between; 
-            background: white; color: var(--cafe-dark); text-decoration: none; 
-            padding: 20px 25px; border-radius: 15px; font-weight: bold; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 8px solid var(--cafe-mid); 
-            cursor: pointer; transition: 0.2s;
-        }
-        .btn-categoria:active { transform: scale(0.98); }
-        .btn-categoria i.fa-chevron-right { color: var(--accent); font-size: 1rem; }
-        .icone-cat { margin-right: 15px; color: var(--accent); font-size: 1.3rem; width: 25px; text-align: center; }
 
-        /* TELA 2: LISTA DE PRODUTOS (Inicia escondida) */
-        #tela-produtos { display: none; }
-        .controles-topo { padding: 10px 15px; background: #fdf8f3; border-bottom: 1px solid #eee; display: flex; align-items: center; }
-        .voltar-btn { cursor: pointer; font-weight: bold; color: var(--cafe-dark); font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        /* Reset para eliminar bordas cinzas e ajustar margens */
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: var(--cafe-light); 
+            color: var(--cafe-dark); 
+            overflow-x: hidden; /* Evita rolagem lateral */
+            width: 100%;
+        }
+        
+        header { 
+            text-align: center; 
+            padding: 25px 15px; 
+            background: var(--cafe-dark); 
+            color: white; 
+            border-bottom: 5px solid var(--accent); 
+            width: 100%;
+            margin: 0;
+        }
+
+        .logo-img {
+            max-width: 140px;
+            height: auto;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 { margin: 0; font-size: 1.6rem; letter-spacing: 2px; }
+
+        /* TELA DE CATEGORIAS - Ajuste de largura e fonte */
+        #tela-categorias { 
+            width: 100%; 
+            max-width: 500px; 
+            margin: 25px auto; 
+            padding: 0 15px;
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+        }
+
+        .btn-categoria { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: white; 
+            color: var(--cafe-dark); 
+            text-decoration: none; 
+            padding: 25px; /* Mais espaço interno */
+            border-radius: 15px; 
+            font-size: 1.4rem; /* Fonte maior para Doces, Salgados, etc */
+            font-weight: 800; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            border-left: 10px solid var(--cafe-dark); 
+            cursor: pointer; 
+        }
+
+        .icone-cat { margin-right: 15px; color: var(--accent); font-size: 1.6rem; }
+
+        /* TELA DE PRODUTOS */
+        #tela-produtos { display: none; width: 100%; }
+        .controles-topo { padding: 15px; background: #fdf8f3; border-bottom: 1px solid #eee; width: 100%; }
+        .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
         
         .item-card { background: white; border-radius: 12px; margin: 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         .topo-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
-        .item-foto { width: 85px; height: 85px; border-radius: 10px; object-fit: cover; background: #eee; flex-shrink: 0; }
-        .item-info { flex: 1; }
-        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); display: block; }
-        .item-preco-base { font-weight: 800; color: var(--cafe-mid); font-size: 1.3rem; display: block; margin-top: 4px; }
+        .item-foto { width: 90px; height: 90px; border-radius: 10px; object-fit: cover; background: #eee; }
+        .item-nome { font-weight: bold; font-size: 1.25rem; } /* Nome do produto maior */
+        .item-preco-base { font-weight: 800; color: var(--cafe-dark); font-size: 1.4rem; display: block; margin-top: 4px; }
         
         .bloco-adicionais { border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 5px; }
-        .linha-sugestao { font-size: 0.95rem; color: var(--cafe-mid); margin-bottom: 4px; font-weight: 500; }
-        .linha-total { 
-            font-size: 1.05rem; font-weight: bold; color: white; background: var(--cafe-dark); 
-            padding: 8px 12px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 5px; 
-        }
-
-        .btn-fim { display: flex; align-items: center; justify-content: center; margin: 30px 15px; padding: 18px; background: var(--accent); color: white; border-radius: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .linha-total { font-size: 1.1rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; }
+        
+        .btn-fim { display: flex; align-items: center; justify-content: center; margin: 30px 15px; padding: 20px; background: var(--accent); color: white; border-radius: 12px; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <i class="fas fa-coffee" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 10px;"></i>
-    <h1 style="margin:0; font-size: 1.6rem; letter-spacing: 2px;">COFFEART</h1>
+    <img src="logo.png" alt="Logo CoffeArt" class="logo-img">
+    <h1>COFFEART</h1>
 </header>
 
 <div id="tela-categorias">
@@ -62,18 +104,15 @@
         <span><i class="fas fa-cookie-bite icone-cat"></i> DOCES</span>
         <i class="fas fa-chevron-right"></i>
     </div>
-    
     <div class="btn-categoria" onclick="carregarCategoria('SALGADOS')">
         <span><i class="fas fa-utensils icone-cat"></i> SALGADOS</span>
         <i class="fas fa-chevron-right"></i>
     </div>
-    
     <div class="btn-categoria" onclick="carregarCategoria('BEBIDAS')">
         <span><i class="fas fa-mug-hot icone-cat"></i> BEBIDAS</span>
         <i class="fas fa-chevron-right"></i>
     </div>
-
-    </div>
+</div>
 
 <div id="tela-produtos">
     <div class="controles-topo">
@@ -81,9 +120,7 @@
             <i class="fas fa-arrow-left"></i> Voltar ao Menu
         </div>
     </div>
-    
     <div id="menu-container"></div>
-    
     <div class="btn-fim" onclick="voltarParaCategorias()">
         <i class="fas fa-chevron-circle-left" style="margin-right: 10px;"></i> Voltar às Categorias
     </div>
@@ -92,10 +129,7 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
 
-    function limpar(t) { 
-        if (!t) return "";
-        return t.replace(/"/g, '').replace(/R\$/g, '').trim(); 
-    }
+    function limpar(t) { return t ? t.replace(/"/g, '').replace(/R\$/g, '').trim() : ""; }
 
     async function carregarCategoria(categoria) {
         const container = document.getElementById('menu-container');
@@ -110,56 +144,19 @@
             const rows = data.split(/\r?\n/);
             container.innerHTML = '';
 
-            let encontrouItens = false;
-
             for (let i = 1; i < rows.length; i++) {
                 if (!rows[i]) continue;
                 const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                
-                if (cols.length >= 2) {
-                    const catPlanilha = limpar(cols[0]).toUpperCase();
-                    
-                    if (catPlanilha === categoria.toUpperCase()) {
-                        encontrouItens = true;
-                        const nome = limpar(cols[1]);
-                        const precoBase = limpar(cols[2]);
-                        const sugestao = limpar(cols[3]);
-                        const precoAdicional = limpar(cols[4]);
-                        const precoTotal = limpar(cols[5]);
-                        const foto = limpar(cols[6]);
-
-                        let htmlAdicional = "";
-                        if (sugestao && sugestao.toLowerCase() !== "não consta" && sugestao !== "") {
-                            htmlAdicional = `
-                                <div class="bloco-adicionais">
-                                    <div class="linha-sugestao">Sugestão: ${sugestao} (+ R$ ${precoAdicional})</div>
-                                    <div class="linha-total">
-                                        <span>Total com adicional</span>
-                                        <span>R$ ${precoTotal}</span>
-                                    </div>
-                                </div>`;
-                        }
-
-                        container.innerHTML += `
-                            <div class="item-card">
-                                <div class="topo-item">
-                                    ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
-                                    <div class="item-info">
-                                        <span class="item-nome">${nome}</span>
-                                        <span class="item-preco-base">R$ ${precoBase}</span>
-                                    </div>
-                                </div>
-                                ${htmlAdicional}
-                            </div>`;
+                if (cols.length >= 2 && limpar(cols[0]).toUpperCase() === categoria.toUpperCase()) {
+                    const nome = limpar(cols[1]), preco = limpar(cols[2]), sug = limpar(cols[3]), pAd = limpar(cols[4]), pTot = limpar(cols[5]), foto = limpar(cols[6]);
+                    let htmlAdicional = "";
+                    if (sug && sug.toLowerCase() !== "não consta" && sug !== "") {
+                        htmlAdicional = `<div class="bloco-adicionais"><div style="color:#755437; font-weight:500; margin-bottom:5px;">Sugestão: ${sug} (+ R$ ${pAd})</div><div class="linha-total"><span>Total com adicional</span><span>R$ ${pTot}</span></div></div>`;
                     }
+                    container.innerHTML += `<div class="item-card"><div class="topo-item">${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}<div class="item-info"><span class="item-nome">${nome}</span><span class="item-preco-base">R$ ${preco}</span></div></div>${htmlAdicional}</div>`;
                 }
             }
-            if (!encontrouItens) {
-                container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Nenhum item encontrado nesta categoria.</p>';
-            }
-        } catch (e) {
-            container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar o cardápio. Verifique a conexão.</p>';
-        }
+        } catch (e) { container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar.</p>'; }
     }
 
     function voltarParaCategorias() {
