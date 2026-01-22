@@ -11,51 +11,75 @@
             --cafe-mid: #854442; 
             --cafe-light: #fff4e6; 
             --accent: #be9b7b; 
+            --header-height: 140px; /* Altura aproximada do topo fixo */
         }
 
-        /* REMOVE A BARRA LATERAL E AJUSTA O PREENCHIMENTO */
         html, body {
             margin: 0 !important;
             padding: 0 !important;
             width: 100% !important;
-            overflow-x: hidden; /* Mata a rolagem lateral */
+            overflow-x: hidden;
             background-color: var(--cafe-light);
-            -webkit-text-size-adjust: 100%;
         }
 
         * { box-sizing: border-box; }
         
+        /* HEADER FIXO */
         header { 
             text-align: center; 
-            padding: 20px 10px; 
+            padding: 15px 10px; 
             background: var(--cafe-dark); 
             color: white; 
             border-bottom: 5px solid var(--accent); 
-            width: 100%; /* Mudado de 100vw para 100% para evitar a barra */
+            width: 100%;
+            position: fixed; /* Fixa no topo */
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: auto;
         }
 
         .logo-img {
-            max-width: 130px;
+            max-width: 100px; /* Reduzi levemente para não ocupar a tela toda quando fixo */
             height: auto;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
 
-        h1 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
+        h1 { margin: 0; font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* CATEGORIAS - FONTE GRANDE E SEM BARRA */
+        /* BARRA VOLTAR FIXA */
+        .controles-topo { 
+            padding: 12px 15px; 
+            background: #fdf8f3; 
+            border-bottom: 1px solid #eee; 
+            width: 100%;
+            position: fixed; /* Fixa abaixo do header */
+            top: 135px; /* Ajuste manual baseado na altura da logo + h1 */
+            left: 0;
+            z-index: 999;
+        }
+
+        /* Espaçador para o conteúdo não sumir debaixo do header fixo */
         #tela-categorias { 
+            padding-top: 160px; /* Empurra as categorias para baixo do header */
             width: 100%;
             max-width: 500px; 
-            margin: 20px auto; 
-            padding: 0 15px;
+            margin: 0 auto; 
+            padding-left: 15px;
+            padding-right: 15px;
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
         }
 
+        #menu-container {
+            padding-top: 210px; /* Empurra os produtos para baixo do header + barra voltar */
+        }
+
+        /* ESTILO DOS BOTÕES E CARDS */
         .btn-categoria { 
             display: flex; 
             align-items: center; 
@@ -68,14 +92,8 @@
             font-weight: 800; 
             box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
             border-left: 10px solid var(--cafe-dark); 
-            cursor: pointer;
         }
 
-        .icone-cat { margin-right: 12px; color: var(--accent); font-size: 1.5rem; width: 30px; text-align: center; }
-
-        /* PRODUTOS - PROTEÇÃO DE IMAGEM */
-        #tela-produtos { display: none; width: 100%; }
-        .controles-topo { padding: 12px 15px; background: #fdf8f3; border-bottom: 1px solid #eee; width: 100%; }
         .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
         
         .item-card { 
@@ -88,66 +106,42 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
         }
         
-        .topo-item { 
-            display: flex; 
-            align-items: flex-start; 
-            gap: 15px; 
-        }
-
-        .item-foto { 
-            width: 85px; 
-            height: 85px; 
-            border-radius: 8px; 
-            object-fit: cover; 
-            background: #f9f9f9; 
-            flex-shrink: 0; /* IMPEDE ESMAGAMENTO */
-            border: 1px solid #f0f0f0;
-        }
-
+        .topo-item { display: flex; align-items: flex-start; gap: 15px; }
+        .item-foto { width: 85px; height: 85px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #f0f0f0; }
         .item-info { flex: 1; min-width: 0; }
-        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); line-height: 1.2; display: block; }
+        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); line-height: 1.2; }
         .item-preco-base { font-weight: 800; color: var(--cafe-dark); font-size: 1.3rem; display: block; margin-top: 6px; }
         
-        .bloco-adicionais { border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 8px; }
-        .linha-total { 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            color: white; 
-            background: var(--cafe-dark); 
-            padding: 10px; 
-            border-radius: 6px; 
-            display: flex; 
-            justify-content: space-between; 
-            margin-top: 8px;
-        }
+        .linha-total { font-size: 1.1rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 8px; }
         
+        #tela-produtos { display: none; width: 100%; }
         .btn-fim { display: flex; align-items: center; justify-content: center; margin: 25px 15px; padding: 18px; background: var(--accent); color: white; border-radius: 12px; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<header>
+<header id="main-header">
     <img src="./Logotipo.png" alt="Logo CoffeArt" class="logo-img">
     <h1>COFFEART</h1>
 </header>
 
 <div id="tela-categorias">
     <div class="btn-categoria" onclick="carregarCategoria('DOCES')">
-        <span><i class="fas fa-cookie-bite icone-cat"></i> DOCES</span>
+        <span><i class="fas fa-cookie-bite" style="margin-right:10px; color:var(--accent)"></i> DOCES</span>
         <i class="fas fa-chevron-right"></i>
     </div>
     <div class="btn-categoria" onclick="carregarCategoria('SALGADOS')">
-        <span><i class="fas fa-utensils icone-cat"></i> SALGADOS</span>
+        <span><i class="fas fa-utensils" style="margin-right:10px; color:var(--accent)"></i> SALGADOS</span>
         <i class="fas fa-chevron-right"></i>
     </div>
     <div class="btn-categoria" onclick="carregarCategoria('BEBIDAS')">
-        <span><i class="fas fa-mug-hot icone-cat"></i> BEBIDAS</span>
+        <span><i class="fas fa-mug-hot" style="margin-right:10px; color:var(--accent)"></i> BEBIDAS</span>
         <i class="fas fa-chevron-right"></i>
     </div>
 </div>
 
 <div id="tela-produtos">
-    <div class="controles-topo">
+    <div class="controles-topo" id="bar-voltar">
         <div class="voltar-btn" onclick="voltarParaCategorias()">
             <i class="fas fa-arrow-left"></i> Voltar ao Menu
         </div>
@@ -161,12 +155,22 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
 
+    // Função para ajustar a posição da barra de voltar dinamicamente
+    function ajustarLayout() {
+        const headerHeight = document.getElementById('main-header').offsetHeight;
+        const barraVoltar = document.getElementById('bar-voltar');
+        barraVoltar.style.top = headerHeight + 'px';
+        document.getElementById('menu-container').style.paddingTop = (headerHeight + 60) + 'px';
+        document.getElementById('tela-categorias').style.paddingTop = (headerHeight + 30) + 'px';
+    }
+
     function limpar(t) { return t ? t.replace(/"/g, '').replace(/R\$/g, '').trim() : ""; }
 
     async function carregarCategoria(categoria) {
         const container = document.getElementById('menu-container');
         document.getElementById('tela-categorias').style.display = 'none';
         document.getElementById('tela-produtos').style.display = 'block';
+        ajustarLayout(); // Reajusta o topo fixo ao carregar
         container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando...</p>';
         window.scrollTo(0,0);
 
@@ -183,19 +187,9 @@
                     const nome = limpar(cols[1]), preco = limpar(cols[2]), sug = limpar(cols[3]), pAd = limpar(cols[4]), pTot = limpar(cols[5]), foto = limpar(cols[6]);
                     let htmlAdicional = "";
                     if (sug && sug.toLowerCase() !== "não consta" && sug !== "") {
-                        htmlAdicional = `<div class="bloco-adicionais"><div style="color:#755437; font-weight:700; font-size:0.95rem; margin-bottom:5px;">Sugestão: ${sug} (+ R$ ${pAd})</div><div class="linha-total"><span>Total</span><span>R$ ${pTot}</span></div></div>`;
+                        htmlAdicional = `<div style="border-top: 1px dashed #ddd; padding-top:10px; margin-top:8px;"><div style="color:#755437; font-weight:700; font-size:0.95rem; margin-bottom:5px;">Sugestão: ${sug} (+ R$ ${pAd})</div><div class="linha-total"><span>Total</span><span>R$ ${pTot}</span></div></div>`;
                     }
-                    container.innerHTML += `
-                        <div class="item-card">
-                            <div class="topo-item">
-                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ddd"></i></div>'}
-                                <div class="item-info">
-                                    <span class="item-nome">${nome}</span>
-                                    <span class="item-preco-base">R$ ${preco}</span>
-                                </div>
-                            </div>
-                            ${htmlAdicional}
-                        </div>`;
+                    container.innerHTML += `<div class="item-card"><div class="topo-item">${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ddd"></i></div>'}<div class="item-info"><span class="item-nome">${nome}</span><span class="item-preco-base">R$ ${preco}</span></div></div>${htmlAdicional}</div>`;
                 }
             }
         } catch (e) { container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar.</p>'; }
@@ -206,6 +200,9 @@
         document.getElementById('tela-categorias').style.display = 'flex';
         window.scrollTo(0,0);
     }
+    
+    // Ajusta o layout assim que a página carrega
+    window.onload = ajustarLayout;
 </script>
 </body>
 </html>
