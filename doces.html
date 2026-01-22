@@ -109,3 +109,30 @@
                                         <span>Total com adicional</span>
                                         <span>R$ ${precoTotal}</span>
                                     </div>
+                                </div>
+                            `;
+                        }
+
+                        container.innerHTML += `
+                            <div class="item-card">
+                                <div class="topo-item">
+                                    ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
+                                    <div class="item-info">
+                                        <span class="item-nome">${nome}</span>
+                                        <span class="item-preco-base">R$ ${precoBase}</span>
+                                    </div>
+                                </div>
+                                ${htmlAdicional}
+                            </div>
+                        `;
+                    }
+                }
+            }
+        } catch (e) {
+            container.innerHTML = '<p style="text-align:center">Carregando cardápio...</p>';
+        }
+    }
+    fetchMenu();
+</script>
+</body>
+</html>
