@@ -6,69 +6,102 @@
     <title>Menu CoffeArt</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --cafe-dark: #4b3832; --cafe-mid: #854442; --cafe-light: #fff4e6; --accent: #be9b7b; }
+        :root { 
+            --cafe-dark: #4b3832; 
+            --cafe-mid: #854442; 
+            --cafe-light: #fff4e6; 
+            --accent: #be9b7b; 
+        }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--cafe-light); color: var(--cafe-dark); padding-bottom: 50px; }
-        header { text-align: center; padding: 20px; background: var(--cafe-dark); color: white; border-bottom: 5px solid var(--accent); }
+        header { text-align: center; padding: 20px; background: var(--cafe-dark); color: white; border-bottom: 5px solid var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
-        /* Menu de Categorias */
-        #menu-categorias { width: 90%; max-width: 400px; margin: 30px auto; display: flex; flex-direction: column; gap: 15px; }
-        .btn-categoria { display: flex; align-items: center; justify-content: space-between; background: white; color: var(--cafe-dark); text-decoration: none; padding: 20px 25px; border-radius: 15px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 8px solid var(--cafe-mid); cursor: pointer; }
+        /* TELA 1: MENU DE CATEGORIAS */
+        #tela-categorias { width: 90%; max-width: 400px; margin: 30px auto; display: flex; flex-direction: column; gap: 15px; }
+        .btn-categoria { 
+            display: flex; align-items: center; justify-content: space-between; 
+            background: white; color: var(--cafe-dark); text-decoration: none; 
+            padding: 20px 25px; border-radius: 15px; font-weight: bold; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 8px solid var(--cafe-mid); 
+            cursor: pointer; transition: 0.2s;
+        }
+        .btn-categoria:active { transform: scale(0.98); }
+        .btn-categoria i.fa-chevron-right { color: var(--accent); font-size: 1rem; }
+        .icone-cat { margin-right: 15px; color: var(--accent); font-size: 1.3rem; width: 25px; text-align: center; }
 
-        /* Itens do Cardápio */
-        #lista-itens { display: none; }
-        .voltar-btn { display: inline-block; margin: 15px; cursor: pointer; font-weight: bold; color: var(--cafe-dark); }
-        .item-card { background: white; border-radius: 12px; margin: 10px 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        /* TELA 2: LISTA DE PRODUTOS (Inicia escondida) */
+        #tela-produtos { display: none; }
+        .controles-topo { padding: 10px 15px; background: #fdf8f3; border-bottom: 1px solid #eee; display: flex; align-items: center; }
+        .voltar-btn { cursor: pointer; font-weight: bold; color: var(--cafe-dark); font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        
+        .item-card { background: white; border-radius: 12px; margin: 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         .topo-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
         .item-foto { width: 85px; height: 85px; border-radius: 10px; object-fit: cover; background: #eee; flex-shrink: 0; }
-        .item-nome { font-weight: bold; font-size: 1.15rem; }
-        .item-preco-base { font-weight: 800; color: var(--cafe-mid); font-size: 1.3rem; margin-top: 4px; display: block; }
+        .item-info { flex: 1; }
+        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); display: block; }
+        .item-preco-base { font-weight: 800; color: var(--cafe-mid); font-size: 1.3rem; display: block; margin-top: 4px; }
+        
         .bloco-adicionais { border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 5px; }
-        .linha-total { font-size: 1.05rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 8px 12px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 5px; }
-        .btn-fim { display: flex; align-items: center; justify-content: center; margin: 30px 15px; padding: 15px; background: var(--accent); color: white; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .linha-sugestao { font-size: 0.95rem; color: var(--cafe-mid); margin-bottom: 4px; font-weight: 500; }
+        .linha-total { 
+            font-size: 1.05rem; font-weight: bold; color: white; background: var(--cafe-dark); 
+            padding: 8px 12px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 5px; 
+        }
+
+        .btn-fim { display: flex; align-items: center; justify-content: center; margin: 30px 15px; padding: 18px; background: var(--accent); color: white; border-radius: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
 <header>
-    <i class="fas fa-coffee" style="font-size: 2rem; color: var(--accent);"></i>
-    <h1>COFFEART</h1>
+    <i class="fas fa-coffee" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 10px;"></i>
+    <h1 style="margin:0; font-size: 1.6rem; letter-spacing: 2px;">COFFEART</h1>
 </header>
 
-<div id="menu-categorias">
+<div id="tela-categorias">
     <div class="btn-categoria" onclick="carregarCategoria('DOCES')">
-        <span><i class="fas fa-cookie-bite"></i> DOCES</span>
+        <span><i class="fas fa-cookie-bite icone-cat"></i> DOCES</span>
         <i class="fas fa-chevron-right"></i>
     </div>
+    
     <div class="btn-categoria" onclick="carregarCategoria('SALGADOS')">
-        <span><i class="fas fa-utensils"></i> SALGADOS</span>
+        <span><i class="fas fa-utensils icone-cat"></i> SALGADOS</span>
         <i class="fas fa-chevron-right"></i>
     </div>
+    
     <div class="btn-categoria" onclick="carregarCategoria('BEBIDAS')">
-        <span><i class="fas fa-mug-hot"></i> BEBIDAS</span>
+        <span><i class="fas fa-mug-hot icone-cat"></i> BEBIDAS</span>
         <i class="fas fa-chevron-right"></i>
     </div>
-</div>
 
-<div id="lista-itens">
-    <div class="voltar-btn" onclick="voltarParaCategorias()">
-        <i class="fas fa-arrow-left"></i> Voltar ao Menu
     </div>
+
+<div id="tela-produtos">
+    <div class="controles-topo">
+        <div class="voltar-btn" onclick="voltarParaCategorias()">
+            <i class="fas fa-arrow-left"></i> Voltar ao Menu
+        </div>
+    </div>
+    
     <div id="menu-container"></div>
+    
     <div class="btn-fim" onclick="voltarParaCategorias()">
-        <i class="fas fa-chevron-circle-left"></i> Voltar ao Menu Inicial
+        <i class="fas fa-chevron-circle-left" style="margin-right: 10px;"></i> Voltar às Categorias
     </div>
 </div>
 
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
 
-    function limpar(t) { return t ? t.replace(/"/g, '').replace(/R\$/g, '').trim() : ""; }
+    function limpar(t) { 
+        if (!t) return "";
+        return t.replace(/"/g, '').replace(/R\$/g, '').trim(); 
+    }
 
     async function carregarCategoria(categoria) {
         const container = document.getElementById('menu-container');
-        document.getElementById('menu-categorias').style.display = 'none';
-        document.getElementById('lista-itens').style.display = 'block';
-        container.innerHTML = '<p style="text-align:center; padding:20px;">Carregando ' + categoria + '...</p>';
+        document.getElementById('tela-categorias').style.display = 'none';
+        document.getElementById('tela-produtos').style.display = 'block';
+        container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando ' + categoria + '...</p>';
         window.scrollTo(0,0);
 
         try {
@@ -77,32 +110,61 @@
             const rows = data.split(/\r?\n/);
             container.innerHTML = '';
 
-            for (let i = 1; i < rows.length; i++) {
-                const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                if (cols.length >= 2 && limpar(cols[0]).toUpperCase() === categoria) {
-                    const nome = limpar(cols[1]), preco = limpar(cols[2]), sug = limpar(cols[3]), pAd = limpar(cols[4]), pTot = limpar(cols[5]), foto = limpar(cols[6]);
-                    
-                    let htmlAdicional = "";
-                    if (sug && sug.toLowerCase() !== "não consta") {
-                        htmlAdicional = `<div class="bloco-adicionais"><div class="linha-sugestao">Sugestão: ${sug} (+ R$ ${pAd})</div><div class="linha-total"><span>Total com adicional</span><span>R$ ${pTot}</span></div></div>`;
-                    }
+            let encontrouItens = false;
 
-                    container.innerHTML += `
-                        <div class="item-card">
-                            <div class="topo-item">
-                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
-                                <div class="item-info"><span class="item-nome">${nome}</span><span class="item-preco-base">R$ ${preco}</span></div>
-                            </div>
-                            ${htmlAdicional}
-                        </div>`;
+            for (let i = 1; i < rows.length; i++) {
+                if (!rows[i]) continue;
+                const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                
+                if (cols.length >= 2) {
+                    const catPlanilha = limpar(cols[0]).toUpperCase();
+                    
+                    if (catPlanilha === categoria.toUpperCase()) {
+                        encontrouItens = true;
+                        const nome = limpar(cols[1]);
+                        const precoBase = limpar(cols[2]);
+                        const sugestao = limpar(cols[3]);
+                        const precoAdicional = limpar(cols[4]);
+                        const precoTotal = limpar(cols[5]);
+                        const foto = limpar(cols[6]);
+
+                        let htmlAdicional = "";
+                        if (sugestao && sugestao.toLowerCase() !== "não consta" && sugestao !== "") {
+                            htmlAdicional = `
+                                <div class="bloco-adicionais">
+                                    <div class="linha-sugestao">Sugestão: ${sugestao} (+ R$ ${precoAdicional})</div>
+                                    <div class="linha-total">
+                                        <span>Total com adicional</span>
+                                        <span>R$ ${precoTotal}</span>
+                                    </div>
+                                </div>`;
+                        }
+
+                        container.innerHTML += `
+                            <div class="item-card">
+                                <div class="topo-item">
+                                    ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
+                                    <div class="item-info">
+                                        <span class="item-nome">${nome}</span>
+                                        <span class="item-preco-base">R$ ${precoBase}</span>
+                                    </div>
+                                </div>
+                                ${htmlAdicional}
+                            </div>`;
+                    }
                 }
             }
-        } catch (e) { container.innerHTML = 'Erro ao carregar.'; }
+            if (!encontrouItens) {
+                container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Nenhum item encontrado nesta categoria.</p>';
+            }
+        } catch (e) {
+            container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar o cardápio. Verifique a conexão.</p>';
+        }
     }
 
     function voltarParaCategorias() {
-        document.getElementById('lista-itens').style.display = 'none';
-        document.getElementById('menu-categorias').style.display = 'flex';
+        document.getElementById('tela-produtos').style.display = 'none';
+        document.getElementById('tela-categorias').style.display = 'flex';
         window.scrollTo(0,0);
     }
 </script>
