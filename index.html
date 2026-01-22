@@ -6,104 +6,133 @@
     <title>Menu CoffeArt</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --cafe-dark: #4b3832;
-            --cafe-mid: #854442;
-            --cafe-light: #fff4e6;
-            --accent: #be9b7b;
+        :root { 
+            --cafe-dark: #4b3832; 
+            --cafe-mid: #854442; 
+            --cafe-light: #fff4e6; 
+            --accent: #be9b7b; 
+        }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--cafe-light); color: var(--cafe-dark); padding-bottom: 50px; }
+        header { text-align: center; padding: 20px; background: var(--cafe-dark); color: white; border-bottom: 5px solid var(--accent); }
+        
+        /* Botão de voltar sem quebrar o iframe */
+        .voltar-btn { 
+            display: inline-block; margin: 15px; text-decoration: none; 
+            color: var(--cafe-dark); font-weight: bold; font-size: 1rem;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--cafe-light);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+        .item-card { background: white; border-radius: 12px; margin: 10px 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .topo-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+        .item-foto { width: 85px; height: 85px; border-radius: 10px; object-fit: cover; background: #eee; flex-shrink: 0; }
+        
+        .item-info { flex: 1; }
+        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); display: block; }
+        
+        /* Preço em Marrom */
+        .item-preco-base { font-weight: 800; color: var(--cafe-mid); font-size: 1.3rem; display: block; margin-top: 4px; }
+
+        .bloco-adicionais { border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 5px; }
+        .linha-sugestao { font-size: 0.95rem; color: var(--cafe-mid); margin-bottom: 4px; font-weight: 500; }
+        
+        /* Barra de total preta */
+        .linha-total { 
+            font-size: 1.05rem; font-weight: bold; color: white;
+            background: var(--cafe-dark); padding: 8px 12px; border-radius: 6px;
+            display: flex; justify-content: space-between; margin-top: 5px;
         }
 
-        header {
-            width: 100%;
-            background-color: var(--cafe-dark);
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-            border-bottom: 6px solid var(--accent);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        /* Botão de fim de página */
+        .btn-fim {
+            display: flex; align-items: center; justify-content: center;
+            margin: 30px 15px; padding: 15px; background: var(--accent);
+            color: white; text-decoration: none; border-radius: 10px;
+            font-weight: bold; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        .logo-container i {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            color: var(--accent);
-        }
-
-        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; }
-
-        .menu-container {
-            width: 90%;
-            max-width: 400px;
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Botões sem target para manter o link do PedidoOn */
-        .btn-categoria {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: white;
-            color: var(--cafe-dark);
-            text-decoration: none;
-            padding: 20px 25px;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-            border-left: 8px solid var(--cafe-mid);
-        }
-
-        .btn-categoria:active { transform: scale(0.98); }
-        .btn-categoria i { color: var(--accent); font-size: 1.4rem; }
-
-        footer { margin-top: auto; padding: 20px; color: var(--cafe-mid); font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo-container">
-        <i class="fas fa-coffee"></i>
-    </div>
-    <h1>COFFEART</h1>
-    <p style="margin: 5px 0 0; font-style: italic; opacity: 0.8;">Cafeteria & Delícias</p>
-</header>
+<header><h1>CoffeArt Cafeteria</h1></header>
 
-<div class="menu-container">
-    <a href="doces.html" class="btn-categoria">
-        <span><i class="fas fa-cookie-bite" style="margin-right: 15px;"></i> DOCES</span>
-        <i class="fas fa-chevron-right"></i>
-    </a>
+<a href="index.html" class="voltar-btn">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+</a>
 
-    <a href="salgados.html" class="btn-categoria">
-        <span><i class="fas fa-utensils" style="margin-right: 15px;"></i> SALGADOS</span>
-        <i class="fas fa-chevron-right"></i>
-    </a>
+<div id="menu-container"></div>
 
-    <a href="bebidas.html" class="btn-categoria">
-        <span><i class="fas fa-mug-hot" style="margin-right: 15px;"></i> BEBIDAS</span>
-        <i class="fas fa-chevron-right"></i>
+<div id="footer-navigation">
+    <a href="index.html" class="btn-fim">
+        <i class="fas fa-chevron-circle-left"></i> Voltar ao Menu Inicial
     </a>
 </div>
 
-<footer>
-    &copy; 2026 CoffeArt Cafeteria
-</footer>
+<script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
+    const CATEGORIA_PARA_FILTRAR = "DOCES"; 
 
+    // Função que remove R$ vindo da planilha para evitar duplicidade
+    function limpar(t) { 
+        if (!t) return "";
+        return t.replace(/"/g, '').replace(/R\$/g, '').trim(); 
+    }
+
+    async function fetchMenu() {
+        const container = document.getElementById('menu-container');
+        try {
+            const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
+            const data = await response.text();
+            const rows = data.split(/\r?\n/);
+            container.innerHTML = '';
+
+            for (let i = 1; i < rows.length; i++) {
+                if (!rows[i]) continue;
+                const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                
+                if (cols.length >= 2) {
+                    const catPlanilha = limpar(cols[0]).toUpperCase();
+                    
+                    if (catPlanilha === CATEGORIA_PARA_FILTRAR) {
+                        const nome = limpar(cols[1]);
+                        const precoBase = limpar(cols[2]);
+                        const sugestao = limpar(cols[3]);
+                        const precoAdicional = limpar(cols[4]);
+                        const precoTotal = limpar(cols[5]);
+                        const foto = limpar(cols[6]);
+
+                        let htmlAdicional = "";
+                        // Verifica se existe algo na coluna de adicional (Coluna D)
+                        if (sugestao && sugestao.toLowerCase() !== "não consta" && sugestao !== "") {
+                            htmlAdicional = `
+                                <div class="bloco-adicionais">
+                                    <div class="linha-sugestao">Sugestão: ${sugestao} (+ R$ ${precoAdicional})</div>
+                                    <div class="linha-total">
+                                        <span>Total com adicional</span>
+                                        <span>R$ ${precoTotal}</span>
+                                    </div>
+                                </div>
+                            `;
+                        }
+
+                        container.innerHTML += `
+                            <div class="item-card">
+                                <div class="topo-item">
+                                    ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
+                                    <div class="item-info">
+                                        <span class="item-nome">${nome}</span>
+                                        <span class="item-preco-base">R$ ${precoBase}</span>
+                                    </div>
+                                </div>
+                                ${htmlAdicional}
+                            </div>
+                        `;
+                    }
+                }
+            }
+        } catch (e) {
+            container.innerHTML = '<p style="text-align:center">Carregando cardápio...</p>';
+        }
+    }
+    fetchMenu();
+</script>
 </body>
 </html>
