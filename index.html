@@ -23,43 +23,52 @@
 
         * { box-sizing: border-box; }
         
+        /* HEADER - AGORA COM MARGEM NO TOPO PARA DESCER */
         header { 
             text-align: center; 
-            padding: 10px; 
             background: var(--cafe-dark); 
             color: white; 
             border-bottom: 5px solid var(--accent); 
-            width: 100%;
+            width: 94%; /* Deixei um pouco menor que 100% para combinar com a descida */
+            margin: 15px 3% 0 3%; /* Aqui ele desce 15px do topo */
             position: fixed; 
             top: 0; left: 0;
             z-index: 9999;
-            height: 130px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            height: 110px; /* Faixa mais estreita */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            border-radius: 10px; /* Cantos levemente arredondados para flutuar */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .logo-img { max-width: 80px; height: auto; margin-bottom: 5px; }
-        h1 { margin: 0; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; }
+        .logo-img { max-width: 65px; height: auto; margin-bottom: 5px; }
+        h1 { margin: 0; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; }
 
+        /* BARRA VOLTAR - Ajustada para a nova posição */
         .controles-topo { 
-            padding: 15px; 
+            padding: 10px 15px; 
             background: #fdf8f3; 
             border-bottom: 1px solid #eee; 
             width: 100%;
             position: fixed;
-            top: 130px; left: 0;
+            top: 125px; /* Altura do header (110) + Margem (15) */
+            left: 0;
             z-index: 9998;
             display: none;
         }
 
         .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
 
+        /* TELA DE CATEGORIAS */
         #tela-categorias { 
             padding-top: 150px; 
             width: 100%;
             max-width: 500px; 
             margin: 0 auto; 
             padding-left: 15px; padding-right: 15px;
-            display: flex; flex-direction: column; gap: 15px; 
+            display: flex; flex-direction: column; gap: 12px; 
             padding-bottom: 50px;
         }
 
@@ -67,35 +76,24 @@
             display: flex; align-items: center; justify-content: space-between; 
             background: white; 
             color: #000000; 
-            padding: 22px 20px; 
+            padding: 20px 20px; 
             border-radius: 12px; 
-            font-size: 1.4rem; 
+            font-size: 1.3rem; 
             font-weight: 800; 
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06); 
             border-left: 10px solid var(--cafe-dark); 
             cursor: pointer;
         }
 
-        #menu-container { padding-top: 195px; }
-        .item-card { background: white; border-radius: 12px; margin: 12px 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-        .topo-item { display: flex; align-items: center; gap: 15px; }
-        .item-foto { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #f0f0f0; }
-        
-        /* AJUSTE: NOME DO PRODUTO EM PRETO E NEGRITO */
-        .item-nome { 
-            font-weight: bold; 
-            font-size: 1.25rem; 
-            color: #000000; 
-            display: block; 
-        }
+        /* TELA DE PRODUTOS */
+        #menu-container { padding-top: 185px; }
 
-        /* AJUSTE: PREÇO EM PRETO E SEM NEGRITO */
-        .item-preco-base { 
-            font-weight: 400; 
-            color: #000000; 
-            font-size: 1.3rem; 
-            display: block; margin-top: 4px; 
-        }
+        .item-card { background: white; border-radius: 12px; margin: 10px 15px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .topo-item { display: flex; align-items: center; gap: 15px; }
+        .item-foto { width: 85px; height: 85px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #f0f0f0; }
+        
+        .item-nome { font-weight: bold; font-size: 1.2rem; color: #000000; display: block; }
+        .item-preco-base { font-weight: 400; color: #000000; font-size: 1.2rem; display: block; margin-top: 4px; }
 
         .linha-total { font-size: 1.1rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 8px; }
         
@@ -103,14 +101,13 @@
 
         .btn-fim { 
             display: flex; align-items: center; justify-content: center; 
-            margin: 50px 15px 80px 15px; 
+            margin: 40px 15px 60px 15px; 
             padding: 18px; 
             background-color: var(--accent); 
             color: white; 
             border-radius: 50px; 
             font-weight: bold; font-size: 1.1rem; 
             cursor: pointer; 
-            box-shadow: 0 4px 12px rgba(190, 155, 123, 0.3);
             text-transform: uppercase;
             border: none;
         }
@@ -216,7 +213,7 @@
                     container.innerHTML += `
                         <div class="item-card">
                             <div class="topo-item">
-                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-camera" style="color:#ddd"></i></div>'}
+                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-camera" style="color:#ddd; font-size:2rem"></i></div>'}
                                 <div class="item-info">
                                     <span class="item-nome">${nome}</span>
                                     <span class="item-preco-base">R$ ${preco}</span>
