@@ -6,70 +6,103 @@
     <title>Menu CoffeArt</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { 
-            margin: 0; padding: 0; 
-            font-family: 'Segoe UI', sans-serif; 
-            background: #fff4e6; text-align: center; 
+        :root {
+            --cafe-dark: #4b3832;
+            --cafe-mid: #854442;
+            --cafe-light: #fff4e6;
+            --accent: #be9b7b;
         }
-        header { 
-            padding: 60px 20px; 
-            background: #4b3832; 
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cafe-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background-color: var(--cafe-dark);
             color: white;
-            border-bottom: 5px solid #be9b7b;
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 6px solid var(--accent);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        .logo { font-size: 32px; font-weight: bold; margin-bottom: 10px; }
-        
-        .menu-grid { 
-            padding: 30px 20px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 20px; 
-            max-width: 400px; 
-            margin: 0 auto; 
+
+        .logo-container i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--accent);
         }
-        
-        .btn-categoria {
-            background: white; 
-            color: #4b3832; 
-            padding: 25px;
-            border-radius: 15px; 
-            text-decoration: none; 
-            font-weight: bold;
-            font-size: 20px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+
+        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; }
+
+        .menu-container {
+            width: 90%;
+            max-width: 400px;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
             gap: 15px;
-            border: 2px solid #be9b7b;
-            transition: transform 0.2s;
         }
-        .btn-categoria:active { transform: scale(0.95); }
-        .btn-categoria i { color: #854442; font-size: 24px; }
+
+        .btn-categoria {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            color: var(--cafe-dark);
+            text-decoration: none;
+            padding: 20px 25px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            border-left: 8px solid var(--cafe-mid);
+        }
+
+        .btn-categoria:active { transform: scale(0.98); }
+        .btn-categoria i { color: var(--accent); font-size: 1.4rem; }
+
+        footer { margin-top: auto; padding: 20px; color: var(--cafe-mid); font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">CoffeArt Cafeteria</div>
-    <p>O que você deseja ver agora?</p>
+    <div class="logo-container">
+        <i class="fas fa-coffee"></i>
+    </div>
+    <h1>COFFEART</h1>
+    <p style="margin: 5px 0 0; font-style: italic; opacity: 0.8;">Cafeteria & Delícias</p>
 </header>
 
-<div class="menu-grid">
-    <a href="doces.html" class="btn-categoria">
-        <i class="fas fa-cake-candles"></i> DOCES
+<div class="menu-container">
+    <a href="doces.html" target="_parent" class="btn-categoria">
+        <span><i class="fas fa-cookie-bite" style="margin-right: 15px;"></i> DOCES</span>
+        <i class="fas fa-chevron-right"></i>
     </a>
-    <a href="salgados.html" class="btn-categoria">
-        <i class="fas fa-bread-slice"></i> SALGADOS
+
+    <a href="salgados.html" target="_parent" class="btn-categoria">
+        <span><i class="fas fa-utensils" style="margin-right: 15px;"></i> SALGADOS</span>
+        <i class="fas fa-chevron-right"></i>
     </a>
-    <a href="bebidas.html" class="btn-categoria">
-        <i class="fas fa-mug-hot"></i> BEBIDAS
+
+    <a href="bebidas.html" target="_parent" class="btn-categoria">
+        <span><i class="fas fa-mug-hot" style="margin-right: 15px;"></i> BEBIDAS</span>
+        <i class="fas fa-chevron-right"></i>
     </a>
 </div>
 
-<p style="color: #999; font-size: 14px; margin-top: 20px;">
-    Toque em uma categoria para abrir
-</p>
+<footer>
+    &copy; 2026 CoffeArt Cafeteria
+</footer>
 
 </body>
 </html>
