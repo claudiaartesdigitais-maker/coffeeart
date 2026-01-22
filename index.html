@@ -13,42 +13,43 @@
             --accent: #be9b7b; 
         }
 
-        /* RESET PARA LARGURA TOTAL NO PEDIDOON */
+        /* REMOVE A BARRA LATERAL E AJUSTA O PREENCHIMENTO */
         html, body {
             margin: 0 !important;
             padding: 0 !important;
             width: 100% !important;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Mata a rolagem lateral */
             background-color: var(--cafe-light);
+            -webkit-text-size-adjust: 100%;
         }
 
         * { box-sizing: border-box; }
         
         header { 
             text-align: center; 
-            padding: 25px 15px; 
+            padding: 20px 10px; 
             background: var(--cafe-dark); 
             color: white; 
             border-bottom: 5px solid var(--accent); 
-            width: 100%;
+            width: 100%; /* Mudado de 100vw para 100% para evitar a barra */
         }
 
         .logo-img {
-            max-width: 140px;
+            max-width: 130px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
 
-        h1 { margin: 0; font-size: 1.6rem; letter-spacing: 2px; text-transform: uppercase; }
+        h1 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* TELA DE CATEGORIAS */
+        /* CATEGORIAS - FONTE GRANDE E SEM BARRA */
         #tela-categorias { 
             width: 100%;
             max-width: 500px; 
-            margin: 25px auto; 
+            margin: 20px auto; 
             padding: 0 15px;
             display: flex; 
             flex-direction: column; 
@@ -61,72 +62,53 @@
             justify-content: space-between; 
             background: white; 
             color: var(--cafe-dark); 
-            padding: 25px; 
-            border-radius: 15px; 
+            padding: 22px 20px; 
+            border-radius: 12px; 
             font-size: 1.4rem; 
             font-weight: 800; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            border-left: 12px solid var(--cafe-dark); 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
+            border-left: 10px solid var(--cafe-dark); 
             cursor: pointer;
         }
 
-        .icone-cat { margin-right: 15px; color: var(--accent); font-size: 1.6rem; width: 30px; text-align: center; }
+        .icone-cat { margin-right: 12px; color: var(--accent); font-size: 1.5rem; width: 30px; text-align: center; }
 
-        /* TELA DE PRODUTOS */
+        /* PRODUTOS - PROTEÇÃO DE IMAGEM */
         #tela-produtos { display: none; width: 100%; }
-        .controles-topo { padding: 15px; background: #fdf8f3; border-bottom: 1px solid #eee; width: 100%; }
+        .controles-topo { padding: 12px 15px; background: #fdf8f3; border-bottom: 1px solid #eee; width: 100%; }
         .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
         
-        /* CARD DO PRODUTO - CORREÇÃO DA FOTO ESMAGADA */
         .item-card { 
             background: white; 
             border-radius: 12px; 
-            margin: 15px; 
+            margin: 12px 15px; 
             padding: 15px; 
             display: flex; 
             flex-direction: column; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
         }
         
         .topo-item { 
             display: flex; 
-            align-items: flex-start; /* Alinha ao topo para nomes longos */
+            align-items: flex-start; 
             gap: 15px; 
-            margin-bottom: 10px; 
         }
 
         .item-foto { 
-            width: 90px; 
-            height: 90px; 
-            border-radius: 10px; 
+            width: 85px; 
+            height: 85px; 
+            border-radius: 8px; 
             object-fit: cover; 
-            background: #f5f5f5; 
-            flex-shrink: 0; /* IMPEDE A FOTO DE SER ESMAGADA */
-            border: 1px solid #eee;
+            background: #f9f9f9; 
+            flex-shrink: 0; /* IMPEDE ESMAGAMENTO */
+            border: 1px solid #f0f0f0;
         }
 
-        .item-info { 
-            flex: 1; /* Faz o texto ocupar o resto do espaço */
-            min-width: 0; /* Ajuda a evitar quebras de layout em nomes gigantes */
-        }
-
-        .item-nome { 
-            font-weight: bold; 
-            font-size: 1.2rem; 
-            color: var(--cafe-dark); 
-            display: block;
-            word-wrap: break-word; /* Força quebra de palavra se necessário */
-        }
-
-        .item-preco-base { 
-            font-weight: 800; 
-            color: var(--cafe-dark); 
-            font-size: 1.4rem; 
-            display: block; 
-            margin-top: 5px; 
-        }
+        .item-info { flex: 1; min-width: 0; }
+        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); line-height: 1.2; display: block; }
+        .item-preco-base { font-weight: 800; color: var(--cafe-dark); font-size: 1.3rem; display: block; margin-top: 6px; }
         
-        .bloco-adicionais { border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 5px; }
+        .bloco-adicionais { border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 8px; }
         .linha-total { 
             font-size: 1.1rem; 
             font-weight: bold; 
@@ -139,7 +121,7 @@
             margin-top: 8px;
         }
         
-        .btn-fim { display: flex; align-items: center; justify-content: center; margin: 30px 15px; padding: 20px; background: var(--accent); color: white; border-radius: 12px; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
+        .btn-fim { display: flex; align-items: center; justify-content: center; margin: 25px 15px; padding: 18px; background: var(--accent); color: white; border-radius: 12px; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -185,7 +167,7 @@
         const container = document.getElementById('menu-container');
         document.getElementById('tela-categorias').style.display = 'none';
         document.getElementById('tela-produtos').style.display = 'block';
-        container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando ' + categoria + '...</p>';
+        container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando...</p>';
         window.scrollTo(0,0);
 
         try {
@@ -201,12 +183,12 @@
                     const nome = limpar(cols[1]), preco = limpar(cols[2]), sug = limpar(cols[3]), pAd = limpar(cols[4]), pTot = limpar(cols[5]), foto = limpar(cols[6]);
                     let htmlAdicional = "";
                     if (sug && sug.toLowerCase() !== "não consta" && sug !== "") {
-                        htmlAdicional = `<div class="bloco-adicionais"><div style="color:#755437; font-weight:700; margin-bottom:5px;">Sugestão: ${sug} (+ R$ ${pAd})</div><div class="linha-total"><span>Total com adicional</span><span>R$ ${pTot}</span></div></div>`;
+                        htmlAdicional = `<div class="bloco-adicionais"><div style="color:#755437; font-weight:700; font-size:0.95rem; margin-bottom:5px;">Sugestão: ${sug} (+ R$ ${pAd})</div><div class="linha-total"><span>Total</span><span>R$ ${pTot}</span></div></div>`;
                     }
                     container.innerHTML += `
                         <div class="item-card">
                             <div class="topo-item">
-                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ccc"></i></div>'}
+                                ${foto ? `<img src="${foto}" class="item-foto">` : '<div class="item-foto" style="display:flex;align-items:center;justify-content:center"><i class="fas fa-utensils" style="color:#ddd"></i></div>'}
                                 <div class="item-info">
                                     <span class="item-nome">${nome}</span>
                                     <span class="item-preco-base">R$ ${preco}</span>
