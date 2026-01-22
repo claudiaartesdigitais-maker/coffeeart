@@ -18,6 +18,7 @@
             width: 100%;
             background-color: var(--cafe-light);
             -webkit-overflow-scrolling: touch;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         * { box-sizing: border-box; }
@@ -65,6 +66,7 @@
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
+            padding-bottom: 40px;
         }
 
         #menu-container {
@@ -97,7 +99,24 @@
         .linha-total { font-size: 1.1rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 8px; }
         
         #tela-produtos { display: none; width: 100%; }
-        .btn-fim { display: flex; align-items: center; justify-content: center; margin: 25px 15px; padding: 18px; background: var(--accent); color: white; border-radius: 12px; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
+
+        /* AJUSTE DO BOTÃO DE FIM (ESTILO LARANJA E COM DISTÂNCIA) */
+        .btn-fim { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 40px 15px 60px 15px; /* Aumentei a distância do topo e do rodapé */
+            padding: 18px; 
+            background: var(--accent); /* Cor Laranja/Bege da marca */
+            color: white; 
+            border-radius: 50px; /* Mais arredondado para parecer um botão e não uma barra */
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(190, 155, 123, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
@@ -125,7 +144,7 @@
         <i class="fas fa-chevron-right"></i>
     </div>
     <div class="btn-categoria" onclick="carregarCategoria('REFRIGERANTES')">
-        <span><i class="fas fa-bottle-wine" style="margin-right:10px; color:var(--accent)"></i> REFRIGERANTES</span>
+        <span><i class="fas fa-bottle-water" style="margin-right:10px; color:var(--accent)"></i> REFRIGERANTES</span>
         <i class="fas fa-chevron-right"></i>
     </div>
     <div class="btn-categoria" onclick="carregarCategoria('ÁGUAS')">
@@ -162,7 +181,7 @@
     </div>
     <div id="menu-container"></div>
     <div class="btn-fim" onclick="voltarParaCategorias()">
-        <i class="fas fa-chevron-circle-left" style="margin-right: 10px;"></i> Voltar às Categorias
+        <i class="fas fa-arrow-left" style="margin-right: 12px;"></i> Voltar às Categorias
     </div>
 </div>
 
