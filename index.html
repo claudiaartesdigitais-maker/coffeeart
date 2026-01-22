@@ -11,20 +11,20 @@
             --cafe-mid: #854442; 
             --cafe-light: #fff4e6; 
             --accent: #be9b7b; 
-            --header-height: 140px; /* Altura aproximada do topo fixo */
         }
 
         html, body {
             margin: 0 !important;
             padding: 0 !important;
             width: 100% !important;
-            overflow-x: hidden;
             background-color: var(--cafe-light);
+            /* Importante para o sticky funcionar */
+            overflow-x: hidden;
         }
 
         * { box-sizing: border-box; }
         
-        /* HEADER FIXO */
+        /* HEADER CONGELADO */
         header { 
             text-align: center; 
             padding: 15px 10px; 
@@ -32,15 +32,14 @@
             color: white; 
             border-bottom: 5px solid var(--accent); 
             width: 100%;
-            position: fixed; /* Fixa no topo */
+            position: -webkit-sticky; /* Suporte para Safari */
+            position: sticky;
             top: 0;
-            left: 0;
-            z-index: 1000;
-            height: auto;
+            z-index: 1001;
         }
 
         .logo-img {
-            max-width: 100px; /* Reduzi levemente para não ocupar a tela toda quando fixo */
+            max-width: 110px;
             height: auto;
             margin-bottom: 5px;
             display: block;
@@ -50,36 +49,29 @@
 
         h1 { margin: 0; font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* BARRA VOLTAR FIXA */
+        /* BARRA VOLTAR CONGELADA */
         .controles-topo { 
             padding: 12px 15px; 
             background: #fdf8f3; 
             border-bottom: 1px solid #eee; 
             width: 100%;
-            position: fixed; /* Fixa abaixo do header */
-            top: 135px; /* Ajuste manual baseado na altura da logo + h1 */
-            left: 0;
-            z-index: 999;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 135px; /* Fica logo abaixo do header marrom */
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        /* Espaçador para o conteúdo não sumir debaixo do header fixo */
         #tela-categorias { 
-            padding-top: 160px; /* Empurra as categorias para baixo do header */
             width: 100%;
             max-width: 500px; 
-            margin: 0 auto; 
-            padding-left: 15px;
-            padding-right: 15px;
+            margin: 20px auto; 
+            padding: 0 15px;
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
         }
 
-        #menu-container {
-            padding-top: 210px; /* Empurra os produtos para baixo do header + barra voltar */
-        }
-
-        /* ESTILO DOS BOTÕES E CARDS */
         .btn-categoria { 
             display: flex; 
             align-items: center; 
@@ -96,6 +88,7 @@
 
         .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
         
+        /* CARDS DOS PRODUTOS */
         .item-card { 
             background: white; 
             border-radius: 12px; 
@@ -109,7 +102,7 @@
         .topo-item { display: flex; align-items: flex-start; gap: 15px; }
         .item-foto { width: 85px; height: 85px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #f0f0f0; }
         .item-info { flex: 1; min-width: 0; }
-        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); line-height: 1.2; }
+        .item-nome { font-weight: bold; font-size: 1.15rem; color: var(--cafe-dark); }
         .item-preco-base { font-weight: 800; color: var(--cafe-dark); font-size: 1.3rem; display: block; margin-top: 6px; }
         
         .linha-total { font-size: 1.1rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 8px; }
@@ -155,13 +148,11 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
 
-    // Função para ajustar a posição da barra de voltar dinamicamente
-    function ajustarLayout() {
-        const headerHeight = document.getElementById('main-header').offsetHeight;
-        const barraVoltar = document.getElementById('bar-voltar');
-        barraVoltar.style.top = headerHeight + 'px';
-        document.getElementById('menu-container').style.paddingTop = (headerHeight + 60) + 'px';
-        document.getElementById('tela-categorias').style.paddingTop = (headerHeight + 30) + 'px';
+    // Calcula a posição da barra de voltar automaticamente
+    function ajustarBarraFixa() {
+        const headerH = document.getElementById('main-header').offsetHeight;
+        const barraV = document.getElementById('bar-voltar');
+        barraV.style.top = (headerH - 1) + 'px'; // -1 para evitar frestas
     }
 
     function limpar(t) { return t ? t.replace(/"/g, '').replace(/R\$/g, '').trim() : ""; }
@@ -170,7 +161,10 @@
         const container = document.getElementById('menu-container');
         document.getElementById('tela-categorias').style.display = 'none';
         document.getElementById('tela-produtos').style.display = 'block';
-        ajustarLayout(); // Reajusta o topo fixo ao carregar
+        
+        // Garante que a barra fixe no lugar certo após mudar de tela
+        setTimeout(ajustarBarraFixa, 10);
+        
         container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando...</p>';
         window.scrollTo(0,0);
 
@@ -201,8 +195,7 @@
         window.scrollTo(0,0);
     }
     
-    // Ajusta o layout assim que a página carrega
-    window.onload = ajustarLayout;
+    window.onload = ajustarBarraFixa;
 </script>
 </body>
 </html>
