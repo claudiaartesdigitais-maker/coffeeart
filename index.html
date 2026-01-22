@@ -74,6 +74,8 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
             border-left: 10px solid var(--cafe-dark); 
             cursor: pointer;
+            /* AJUSTE: TUDO EM MAIÚSCULO NA CAPA */
+            text-transform: uppercase;
         }
 
         #menu-container { padding-top: 195px; }
@@ -81,22 +83,8 @@
         .topo-item { display: flex; align-items: center; gap: 15px; }
         .item-foto { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; border: 1px solid #f0f0f0; }
         
-        /* AJUSTE: NOME DO PRODUTO EM PRETO E NEGRITO */
-        .item-nome { 
-            font-weight: bold; 
-            font-size: 1.25rem; 
-            color: #000000; 
-            display: block; 
-        }
-
-        /* AJUSTE: PREÇO EM PRETO E SEM NEGRITO */
-        .item-preco-base { 
-            font-weight: 400; 
-            color: #000000; 
-            font-size: 1.3rem; 
-            display: block; margin-top: 4px; 
-        }
-
+        .item-nome { font-weight: bold; font-size: 1.25rem; color: #000000; display: block; }
+        .item-preco-base { font-weight: 400; color: #000000; font-size: 1.3rem; display: block; margin-top: 4px; }
         .linha-total { font-size: 1.1rem; font-weight: bold; color: white; background: var(--cafe-dark); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; margin-top: 8px; }
         
         #tela-produtos { display: none; width: 100%; }
@@ -124,7 +112,7 @@
 </header>
 
 <div id="tela-categorias">
-    <div class="btn-categoria" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%)">
+    <div class="btn-categoria" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%')">
         <span><i class="fas fa-mug-hot" style="margin-right:10px; color:var(--accent)"></i> Café Especial Arábica 100%</span>
         <i class="fas fa-chevron-right"></i>
     </div>
@@ -209,7 +197,9 @@
             for (let i = 1; i < rows.length; i++) {
                 if (!rows[i]) continue;
                 const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                if (cols.length >= 2 && limpar(cols[0]).toUpperCase() === categoria.toUpperCase()) {
+                
+                // CORRIGIDO: Adicionado .trim() para evitar erro com espaços invisíveis
+                if (cols.length >= 2 && limpar(cols[0]).toUpperCase().trim() === categoria.toUpperCase().trim()) {
                     const nome = limpar(cols[1]), preco = limpar(cols[2]), sug = limpar(cols[3]), pAd = limpar(cols[4]), pTot = limpar(cols[5]), foto = limpar(cols[6]);
                     
                     let htmlAdicional = "";
