@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -87,6 +87,33 @@
         .var-tamanho { font-size: 0.95rem; color: #666; }
         .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ccc; margin: 0 8px; }
         .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 1.05rem; }
+
+        /* Estilo da Seção de Adicionais sugeridos */
+        .secao-adicionais {
+            margin: 30px 15px 15px 15px; 
+            padding: 15px; 
+            border-radius: 15px; 
+            background: #fff; 
+            border: 2px solid #efe4d8;
+        }
+        .titulo-adicionais {
+            margin: 0 0 12px 0; 
+            color: var(--cafe-dark); 
+            text-align: center; 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+        .item-adicional {
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 0.85rem; 
+            margin-bottom: 8px; 
+            color: #555;
+            border-bottom: 1px solid #f9f9f9;
+            padding-bottom: 4px;
+        }
 
         #tela-produtos { display: none; width: 100%; }
 
@@ -200,6 +227,16 @@
             const rows = data.split(/\r?\n/);
             
             const agrupados = {};
+            const adicionais = {};
+
+            // Lógica para decidir qual adicional carregar no final
+            let categoriaAdicional = "";
+            const catBusca = categoriaAlvo.toUpperCase();
+            if (catBusca.includes("CAFÉ") || catBusca.includes("BEBIDAS") || catBusca.includes("SUCOS") || catBusca.includes("CHÁ")) {
+                categoriaAdicional = "INCREMENTE SUA BEBIDA";
+            } else if (catBusca === "SALGADOS") {
+                categoriaAdicional = "INCREMENTE SEU SALGADO";
+            }
 
             for (let i = 1; i < rows.length; i++) {
                 if (!rows[i]) continue;
@@ -217,17 +254,16 @@
                     }
                     agrupados[prod].variacoes.push({ t: tam, p: preco });
                 }
+
+                if (categoriaAdicional && cat.toUpperCase() === categoriaAdicional.toUpperCase()) {
+                    adicionais[prod] = { nome: prod, preco: preco };
+                }
             }
 
             container.innerHTML = '';
-            const itens = Object.values(agrupados);
-
-            if (itens.length === 0) {
-                container.innerHTML = '<p style="text-align:center; padding:50px;">Nenhum item encontrado.</p>';
-                return;
-            }
-
-            itens.forEach(item => {
+            
+            // Renderiza Itens Principais
+            Object.values(agrupados).forEach(item => {
                 let varsHtml = '';
                 item.variacoes.forEach(v => {
                     varsHtml += `
@@ -250,6 +286,24 @@
                         </div>
                     </div>`;
             });
+
+            // Renderiza Seção de Adicionais sugeridos de forma COMPACTA
+            const listaAdicionais = Object.values(adicionais);
+            if (listaAdicionais.length > 0) {
+                let htmlAdic = `
+                    <div class="secao-adicionais">
+                        <h4 class="titulo-adicionais">✨ Que tal um toque especial?</h4>`;
+                
+                listaAdicionais.forEach(a => {
+                    htmlAdic += `
+                        <div class="item-adicional">
+                            <span>${a.nome}</span>
+                            <span style="font-weight: bold; color: var(--cafe-dark);">+ R$ ${a.preco}</span>
+                        </div>`;
+                });
+                htmlAdic += `</div>`;
+                container.innerHTML += htmlAdic;
+            }
 
         } catch (e) {
             container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar cardápio.</p>';
