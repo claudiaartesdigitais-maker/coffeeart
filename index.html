@@ -88,7 +88,6 @@
         .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ccc; margin: 0 8px; }
         .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 1.05rem; }
 
-        /* Estilo da Seção de Adicionais sugeridos */
         .secao-adicionais {
             margin: 30px 15px 15px 15px; 
             padding: 15px; 
@@ -208,6 +207,7 @@
 </div>
 
 <script>
+    // URL da Planilha (Certifique-se que a aba EMBU é a primeira na ordem da planilha do Google)
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?output=csv';
 
     function limpar(t) { return t ? t.replace(/^"|"$/g, '').replace(/R\$/g, '').trim() : ""; }
@@ -229,7 +229,6 @@
             const agrupados = {};
             const adicionais = {};
 
-            // Lógica para decidir qual adicional carregar no final
             let categoriaAdicional = "";
             const catBusca = categoriaAlvo.toUpperCase();
             if (catBusca.includes("CAFÉ") || catBusca.includes("BEBIDAS") || catBusca.includes("SUCOS") || catBusca.includes("CHÁ")) {
@@ -238,7 +237,9 @@
                 categoriaAdicional = "INCREMENTE SEU SALGADO";
             }
 
-            for (let i = 1; i < rows.length; i++) {
+            // AJUSTE DE LEITURA: Começa em i = 2 (Linha 3 da Planilha) 
+            // para pular o cabeçalho e o título "EMBU"
+            for (let i = 2; i < rows.length; i++) {
                 if (!rows[i]) continue;
                 const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                 
@@ -262,7 +263,6 @@
 
             container.innerHTML = '';
             
-            // Renderiza Itens Principais
             Object.values(agrupados).forEach(item => {
                 let varsHtml = '';
                 item.variacoes.forEach(v => {
@@ -287,7 +287,6 @@
                     </div>`;
             });
 
-            // Renderiza Seção de Adicionais sugeridos de forma COMPACTA
             const listaAdicionais = Object.values(adicionais);
             if (listaAdicionais.length > 0) {
                 let htmlAdic = `
