@@ -18,67 +18,77 @@
             width: 100%;
             background-color: var(--cafe-light);
             font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
         }
 
         * { box-sizing: border-box; }
         
+        /* CABEÇALHO FIXO */
         header { 
             text-align: center; 
             padding: 10px; 
             background: var(--cafe-dark); 
             color: white; 
-            border-bottom: 5px solid var(--accent); 
             width: 100%;
             position: fixed; 
             top: 0; left: 0;
-            z-index: 9999;
-            height: 120px; /* Reduzi um pouco a altura já que saiu o botão */
+            z-index: 10000;
+            height: 100px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
 
-        .logo-img { max-width: 70px; height: auto; margin-bottom: 5px; }
-        h1 { margin: 0; font-size: 1.1rem !important; letter-spacing: 1px; text-transform: uppercase; color: #ffffff !important; }
+        .logo-img { max-width: 50px; height: auto; margin-bottom: 2px; }
+        h1 { margin: 0; font-size: 0.9rem !important; letter-spacing: 1px; text-transform: uppercase; color: #ffffff !important; }
 
-        .controles-topo { 
-            padding: 12px 15px; 
-            background: #fdf8f3; 
-            border-bottom: 1px solid #eee; 
-            width: 100%;
+        /* NAVEGAÇÃO POR ABAS (HORIZONTAL) */
+        .nav-categorias {
             position: fixed;
-            top: 120px; left: 0;
-            z-index: 9998;
-            display: none; 
-            justify-content: flex-start; /* Alinhado à esquerda */
-            align-items: center;
-        }
-
-        .voltar-btn { cursor: pointer; font-weight: bold; font-size: 1rem; color: var(--cafe-dark); display: flex; align-items: center; gap: 8px; }
-
-        #tela-categorias { 
-            padding-top: 140px; 
+            top: 100px;
+            left: 0;
             width: 100%;
-            max-width: 500px; 
-            margin: 0 auto; 
-            padding-left: 15px; padding-right: 15px;
-            display: flex; flex-direction: column; gap: 12px; 
-            padding-bottom: 50px;
+            background: white;
+            z-index: 9999;
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 5px;
+            border-bottom: 2px solid var(--accent);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            -webkit-overflow-scrolling: touch;
         }
 
-        .btn-categoria { 
-            display: flex; align-items: center; justify-content: space-between; 
-            background: white; 
-            color: #000; 
-            padding: 18px 20px; 
-            border-radius: 12px; 
-            font-size: 1.1rem; 
-            font-weight: 800; 
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
-            border-left: 10px solid var(--cafe-dark); 
-            cursor: pointer;
+        .nav-categorias::-webkit-scrollbar { display: none; } /* Esconde barra de rolagem */
+
+        .tab-item {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 0 5px;
+            background: var(--cafe-light);
+            color: var(--cafe-dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
             text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: 0.3s;
         }
 
-        #menu-container { padding-top: 185px; }
+        .tab-item.active {
+            background: var(--cafe-dark);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* CONTAINER DE PRODUTOS */
+        #menu-container { 
+            padding-top: 170px; /* Espaço para Header + Nav */
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
         .item-card { background: white; border-radius: 12px; margin: 12px 15px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
         .topo-item { display: flex; gap: 15px; align-items: flex-start; }
         .item-foto { width: 85px; height: 85px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #f9f9f9; }
@@ -90,6 +100,7 @@
         .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ccc; margin: 0 8px; }
         .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 1.05rem; }
 
+        /* ADICIONAIS */
         .secao-adicionais {
             margin: 30px 15px 15px 15px; 
             padding: 15px; 
@@ -103,7 +114,6 @@
             text-align: center; 
             font-size: 0.85rem; 
             text-transform: uppercase; 
-            letter-spacing: 1px;
             font-weight: 800;
         }
         .item-adicional {
@@ -115,19 +125,14 @@
             border-bottom: 1px solid #f9f9f9;
             padding-bottom: 4px;
         }
-
-        #tela-produtos { display: none; width: 100%; }
-
-        .btn-fim { 
-            display: flex; align-items: center; justify-content: center; 
-            margin: 40px 15px 80px 15px; 
-            padding: 18px; 
-            background-color: var(--accent); 
-            color: white; 
-            border-radius: 50px; 
-            font-weight: bold; text-transform: uppercase;
-            cursor: pointer; 
+        
+        .msg-selecione {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--cafe-dark);
+            font-style: italic;
         }
+
     </style>
 </head>
 <body>
@@ -137,75 +142,16 @@
     <h1>COFFEART - EMBU DAS ARTES</h1>
 </header>
 
-<div id="tela-categorias">
-    <div class="btn-categoria" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%')">
-        <span><i class="fas fa-mug-hot" style="margin-right:10px; color:var(--accent)"></i> Café Especial Arábica 100%</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART')">
-        <span><i class="fas fa-mug-hot" style="margin-right:10px; color:var(--accent)"></i> Linha Clássica Coffee Art</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>      
-    <div class="btn-categoria" onclick="carregarCategoria('BEBIDAS QUENTES')">
-        <span><i class="fas fa-mug-hot" style="margin-right:10px; color:var(--accent)"></i> BEBIDAS QUENTES</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('BEBIDAS GELADAS')">
-        <span><i class="fas fa-snowflake" style="margin-right:10px; color:var(--accent)"></i> BEBIDAS GELADAS</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('SUCOS')">
-        <span><i class="fas fa-glass-whiskey" style="margin-right:10px; color:var(--accent)"></i> SUCOS</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('INCREMENTE SUA BEBIDA')">
-        <span><i class="fas fa-plus-circle" style="margin-right:10px; color:var(--accent)"></i> INCREMENTE SUA BEBIDA</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('REFRIGERANTES')">
-        <span><i class="fas fa-wine-bottle" style="margin-right:10px; color:var(--accent)"></i> REFRIGERANTES</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('ÁGUAS')">
-        <span><i class="fas fa-tint" style="margin-right:10px; color:var(--accent)"></i> ÁGUAS</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('CHÁ KAFA')">
-        <span><i class="fas fa-leaf" style="margin-right:10px; color:var(--accent)"></i> CHÁ KAFA</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('CHÁ KURTEA')">
-        <span><i class="fas fa-leaf" style="margin-right:10px; color:var(--accent)"></i> CHÁ KURTEA</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('DOCES')">
-        <span><i class="fas fa-cookie-bite" style="margin-right:10px; color:var(--accent)"></i> DOCES</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('SALGADOS')">
-        <span><i class="fas fa-utensils" style="margin-right:10px; color:var(--accent)"></i> SALGADOS</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('INCREMENTE SEU SALGADO')">
-        <span><i class="fas fa-plus-square" style="margin-right:10px; color:var(--accent)"></i> INCREMENTE SEU SALGADO</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
-    <div class="btn-categoria" onclick="carregarCategoria('SALGADOS POR ENCOMENDA')">
-        <span><i class="fas fa-box" style="margin-right:10px; color:var(--accent)"></i> SALGADOS POR ENCOMENDA</span>
-        <i class="fas fa-chevron-right"></i>
-    </div>
+<div class="nav-categorias" id="abas-categorias">
+    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés</div>
+    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Clássicos</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Geladas</div>
+    <div class="tab-item" onclick="carregarCategoria('DOCES', this)">Doces</div>
+    <div class="tab-item" onclick="carregarCategoria('SALGADOS', this)">Salgados</div>
 </div>
 
-<div id="tela-produtos">
-    <div class="controles-topo" id="barra-voltar-fixa">
-        <div class="voltar-btn" onclick="voltarParaCategorias()">
-            <i class="fas fa-arrow-left"></i> Voltar ao Menu
-        </div>
-    </div>
-    <div id="menu-container"></div>
-    <div class="btn-fim" onclick="voltarParaCategorias()">
-        <i class="fas fa-arrow-left" style="margin-right: 12px;"></i> Voltar às Categorias
-    </div>
+<div id="menu-container">
+    <div class="msg-selecione">Selecione uma categoria acima para ver as delícias...</div>
 </div>
 
 <script>
@@ -213,12 +159,12 @@
 
     function limpar(t) { return t ? t.replace(/^"|"$/g, '').replace(/R\$/g, '').trim() : ""; }
 
-    async function carregarCategoria(categoriaAlvo) {
+    async function carregarCategoria(categoriaAlvo, elemento) {
+        // Estilo das abas
+        document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
+        if(elemento) elemento.classList.add('active');
+
         const container = document.getElementById('menu-container');
-        document.getElementById('tela-categorias').style.display = 'none';
-        document.getElementById('tela-produtos').style.display = 'block';
-        document.getElementById('barra-voltar-fixa').style.display = 'flex';
-        
         container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando...</p>';
         window.scrollTo(0,0);
 
@@ -288,16 +234,9 @@
 
             const listaAdicionais = Object.values(adicionais);
             if (listaAdicionais.length > 0) {
-                let htmlAdic = `
-                    <div class="secao-adicionais">
-                        <h4 class="titulo-adicionais">✨ Que tal um toque especial?</h4>`;
-                
+                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Toque Especial?</h4>`;
                 listaAdicionais.forEach(a => {
-                    htmlAdic += `
-                        <div class="item-adicional">
-                            <span>${a.nome}</span>
-                            <span style="font-weight: bold; color: var(--cafe-dark);">+ R$ ${a.preco}</span>
-                        </div>`;
+                    htmlAdic += `<div class="item-adicional"><span>${a.nome}</span><span style="font-weight: bold; color: var(--cafe-dark);">+ R$ ${a.preco}</span></div>`;
                 });
                 htmlAdic += `</div>`;
                 container.innerHTML += htmlAdic;
@@ -308,12 +247,8 @@
         }
     }
 
-    function voltarParaCategorias() {
-        document.getElementById('tela-produtos').style.display = 'none';
-        document.getElementById('barra-voltar-fixa').style.display = 'none';
-        document.getElementById('tela-categorias').style.display = 'flex';
-        window.scrollTo(0,0);
-    }
+    // Carregar a primeira categoria automaticamente ao abrir
+    window.onload = () => carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%');
 </script>
 </body>
 </html>
