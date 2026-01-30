@@ -1,9 +1,24 @@
+Entendi perfeitamente! Para ficar igual ao Matos Bar (ObaMenu), as categorias precisam ser uma lista completa que desliza para o lado e os nomes devem ser exatamente os que estão na sua planilha, senão os produtos não aparecem.
+
+Fiz os seguintes ajustes:
+
+Enquadramento Total: Ajustei as margens para que nada fique "cortado" no celular.
+
+Lista Completa de Botões: Coloquei todas as suas categorias (Sucos, Chás, Incrementos, etc.).
+
+Scroll Horizontal Suave: A barrinha de cima agora desliza com o dedo, igual a um aplicativo.
+
+Nomes Identicos: Ajustei os textos para baterem com o seu CSV.
+
+Aqui está o código completo para Embu das Artes (depois fazemos o de Itapevi):
+
+HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Menu CoffeArt - Embu das Artes</title>
+    <title>Menu CoffeArt - Embu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
@@ -23,27 +38,27 @@
 
         * { box-sizing: border-box; }
         
-        /* CABEÇALHO FIXO */
         header { 
             text-align: center; 
-            padding: 10px; 
+            padding: 5px; 
             background: var(--cafe-dark); 
             color: white; 
             width: 100%;
             position: fixed; 
             top: 0; left: 0;
             z-index: 10000;
-            height: 100px;
+            height: 90px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-bottom: 3px solid var(--accent);
         }
 
-        .logo-img { max-width: 50px; height: auto; margin-bottom: 2px; }
-        h1 { margin: 0; font-size: 0.9rem !important; letter-spacing: 1px; text-transform: uppercase; color: #ffffff !important; }
+        .logo-img { max-width: 45px; height: auto; }
+        h1 { margin: 0; font-size: 0.8rem !important; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* NAVEGAÇÃO POR ABAS (HORIZONTAL) */
+        /* BARRA DE CATEGORIAS ESTILO OBAMENU */
         .nav-categorias {
             position: fixed;
-            top: 100px;
+            top: 90px;
             left: 0;
             width: 100%;
             background: white;
@@ -51,87 +66,57 @@
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
-            padding: 10px 5px;
-            border-bottom: 2px solid var(--accent);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            -webkit-overflow-scrolling: touch;
+            padding: 12px 10px;
+            border-bottom: 1px solid #ddd;
+            -webkit-overflow-scrolling: touch; /* Rolagem lisa no iPhone */
         }
 
-        .nav-categorias::-webkit-scrollbar { display: none; } /* Esconde barra de rolagem */
+        /* Esconde a barra de rolagem visualmente */
+        .nav-categorias::-webkit-scrollbar { display: none; }
 
         .tab-item {
             display: inline-block;
-            padding: 8px 15px;
-            margin: 0 5px;
-            background: var(--cafe-light);
-            color: var(--cafe-dark);
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 8px 18px;
+            margin-right: 8px;
+            background: #f0f0f0;
+            color: #555;
+            border-radius: 50px;
+            font-size: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
-            border: 1px solid transparent;
-            transition: 0.3s;
+            transition: all 0.2s;
+            border: 1px solid #eee;
         }
 
         .tab-item.active {
             background: var(--cafe-dark);
             color: white;
-            border-color: var(--accent);
+            border-color: var(--cafe-dark);
         }
 
-        /* CONTAINER DE PRODUTOS */
         #menu-container { 
-            padding-top: 170px; /* Espaço para Header + Nav */
+            padding-top: 155px; /* Espaço para Header + Nav */
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
-            min-height: 100vh;
+            padding-bottom: 40px;
         }
 
-        .item-card { background: white; border-radius: 12px; margin: 12px 15px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-        .topo-item { display: flex; gap: 15px; align-items: flex-start; }
-        .item-foto { width: 85px; height: 85px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #f9f9f9; }
+        .item-card { background: white; border-radius: 10px; margin: 10px; padding: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .topo-item { display: flex; gap: 12px; align-items: center; }
+        .item-foto { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
         .item-info { flex-grow: 1; }
-        .item-nome { font-weight: bold; font-size: 1.1rem; color: #000; display: block; margin-bottom: 5px; text-transform: uppercase; }
+        .item-nome { font-weight: 800; font-size: 0.95rem; color: #333; display: block; margin-bottom: 4px; text-transform: uppercase; }
 
-        .linha-variacao { display: flex; justify-content: space-between; align-items: baseline; margin-top: 6px; }
-        .var-tamanho { font-size: 0.95rem; color: #666; }
-        .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ccc; margin: 0 8px; }
-        .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 1.05rem; }
+        .linha-variacao { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+        .var-tamanho { font-size: 0.85rem; color: #777; }
+        .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ddd; margin: 0 8px; }
+        .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 0.95rem; }
 
-        /* ADICIONAIS */
-        .secao-adicionais {
-            margin: 30px 15px 15px 15px; 
-            padding: 15px; 
-            border-radius: 15px; 
-            background: #fff; 
-            border: 2px solid #efe4d8;
-        }
-        .titulo-adicionais {
-            margin: 0 0 12px 0; 
-            color: var(--cafe-dark); 
-            text-align: center; 
-            font-size: 0.85rem; 
-            text-transform: uppercase; 
-            font-weight: 800;
-        }
-        .item-adicional {
-            display: flex; 
-            justify-content: space-between; 
-            font-size: 0.85rem; 
-            margin-bottom: 8px; 
-            color: #555;
-            border-bottom: 1px solid #f9f9f9;
-            padding-bottom: 4px;
-        }
-        
-        .msg-selecione {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--cafe-dark);
-            font-style: italic;
-        }
+        .secao-adicionais { margin: 20px 10px; padding: 15px; border-radius: 10px; background: #fff; border: 1px dashed var(--accent); }
+        .titulo-adicionais { margin: 0 0 10px 0; color: var(--cafe-dark); text-align: center; font-size: 0.8rem; text-transform: uppercase; font-weight: 900; }
+        .item-adicional { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; color: #555; }
 
     </style>
 </head>
@@ -143,16 +128,21 @@
 </header>
 
 <div class="nav-categorias" id="abas-categorias">
-    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés</div>
-    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Clássicos</div>
-    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Geladas</div>
+    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés Arábica</div>
+    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Linha Clássica</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS QUENTES', this)">Bebidas Quentes</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Bebidas Geladas</div>
+    <div class="tab-item" onclick="carregarCategoria('SUCOS', this)">Sucos</div>
+    <div class="tab-item" onclick="carregarCategoria('CHÁ KAFA', this)">Chá Kafa</div>
+    <div class="tab-item" onclick="carregarCategoria('CHÁ KURTEA', this)">Chá Kurtea</div>
+    <div class="tab-item" onclick="carregarCategoria('REFRIGERANTES', this)">Refrigerantes</div>
+    <div class="tab-item" onclick="carregarCategoria('ÁGUAS', this)">Águas</div>
     <div class="tab-item" onclick="carregarCategoria('DOCES', this)">Doces</div>
     <div class="tab-item" onclick="carregarCategoria('SALGADOS', this)">Salgados</div>
+    <div class="tab-item" onclick="carregarCategoria('SALGADOS POR ENCOMENDA', this)">Encomendas</div>
 </div>
 
-<div id="menu-container">
-    <div class="msg-selecione">Selecione uma categoria acima para ver as delícias...</div>
-</div>
+<div id="menu-container"></div>
 
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?gid=0&single=true&output=csv';
@@ -160,13 +150,14 @@
     function limpar(t) { return t ? t.replace(/^"|"$/g, '').replace(/R\$/g, '').trim() : ""; }
 
     async function carregarCategoria(categoriaAlvo, elemento) {
-        // Estilo das abas
         document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
-        if(elemento) elemento.classList.add('active');
+        if(elemento) {
+            elemento.classList.add('active');
+            elemento.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
 
         const container = document.getElementById('menu-container');
-        container.innerHTML = '<p style="text-align:center; padding:50px; color:#888;">Carregando...</p>';
-        window.scrollTo(0,0);
+        container.innerHTML = '<p style="text-align:center; padding:50px; color:#888; font-size: 0.9rem;">Buscando delícias...</p>';
 
         try {
             const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
@@ -175,9 +166,9 @@
             
             const agrupados = {};
             const adicionais = {};
-
             let categoriaAdicional = "";
             const catBusca = categoriaAlvo.toUpperCase();
+
             if (catBusca.includes("CAFÉ") || catBusca.includes("BEBIDAS") || catBusca.includes("SUCOS") || catBusca.includes("CHÁ")) {
                 categoriaAdicional = "INCREMENTE SUA BEBIDA";
             } else if (catBusca === "SALGADOS") {
@@ -187,67 +178,53 @@
             for (let i = 2; i < rows.length; i++) {
                 if (!rows[i]) continue;
                 const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                
-                const cat   = limpar(cols[0]);
-                const prod  = limpar(cols[1]);
-                const tam   = limpar(cols[2]);
+                const cat = limpar(cols[0]);
+                const prod = limpar(cols[1]);
+                const tam = limpar(cols[2]);
                 const preco = limpar(cols[3]);
-                const foto  = limpar(cols[7]);
+                const foto = limpar(cols[7]);
 
                 if (cat.toUpperCase() === categoriaAlvo.toUpperCase()) {
-                    if (!agrupados[prod]) {
-                        agrupados[prod] = { nome: prod, foto: foto, variacoes: [] };
-                    }
+                    if (!agrupados[prod]) agrupados[prod] = { nome: prod, foto: foto, variacoes: [] };
                     agrupados[prod].variacoes.push({ t: tam, p: preco });
                 }
-
                 if (categoriaAdicional && cat.toUpperCase() === categoriaAdicional.toUpperCase()) {
                     adicionais[prod] = { nome: prod, preco: preco };
                 }
             }
 
             container.innerHTML = '';
-            
             Object.values(agrupados).forEach(item => {
                 let varsHtml = '';
                 item.variacoes.forEach(v => {
-                    varsHtml += `
-                        <div class="linha-variacao">
-                            <span class="var-tamanho">${v.t}</span>
-                            <div class="var-pontos"></div>
-                            <span class="var-preco">R$ ${v.p}</span>
-                        </div>`;
+                    varsHtml += `<div class="linha-variacao"><span class="var-tamanho">${v.t}</span><div class="var-pontos"></div><span class="var-preco">R$ ${v.p}</span></div>`;
                 });
 
                 container.innerHTML += `
                     <div class="item-card">
                         <div class="topo-item">
                             ${item.foto ? `<img src="${item.foto}" class="item-foto" onerror="this.style.display='none'">` : 
-                            '<div class="item-foto" style="display:flex;align-items:center;justify-content:center;background:#f0f0f0"><i class="fas fa-camera" style="color:#ccc"></i></div>'}
-                            <div class="item-info">
-                                <span class="item-nome">${item.nome}</span>
-                                ${varsHtml}
-                            </div>
+                            '<div class="item-foto" style="display:flex;align-items:center;justify-content:center;background:#f9f9f9"><i class="fas fa-camera" style="color:#ddd"></i></div>'}
+                            <div class="item-info"><span class="item-nome">${item.nome}</span>${varsHtml}</div>
                         </div>
                     </div>`;
             });
 
             const listaAdicionais = Object.values(adicionais);
             if (listaAdicionais.length > 0) {
-                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Toque Especial?</h4>`;
+                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Personalize sua escolha</h4>`;
                 listaAdicionais.forEach(a => {
-                    htmlAdic += `<div class="item-adicional"><span>${a.nome}</span><span style="font-weight: bold; color: var(--cafe-dark);">+ R$ ${a.preco}</span></div>`;
+                    htmlAdic += `<div class="item-adicional"><span>${a.nome}</span><span style="font-weight:bold; color:var(--cafe-dark);">+ R$ ${a.preco}</span></div>`;
                 });
-                htmlAdic += `</div>`;
-                container.innerHTML += htmlAdic;
+                container.innerHTML += htmlAdic + `</div>`;
             }
+            window.scrollTo(0,0);
 
         } catch (e) {
-            container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar cardápio.</p>';
+            container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar.</p>';
         }
     }
 
-    // Carregar a primeira categoria automaticamente ao abrir
     window.onload = () => carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%');
 </script>
 </body>
