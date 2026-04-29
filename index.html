@@ -55,7 +55,7 @@
             text-transform: uppercase;
             cursor: pointer;
             border: 1px solid #ddd;
-            width: calc(33.33% - 10px); /* 3 botões por linha para caberem todos no topo */
+            width: calc(33.33% - 10px); 
             text-align: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
@@ -99,14 +99,14 @@
 
 <div class="container-categorias">
     <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés</div>
-    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Clássica</div>
+    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Linha Clássica</div>
     <div class="tab-item" onclick="carregarCategoria('BEBIDAS QUENTES', this)">Quentes</div>
     <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Geladas</div>
     <div class="tab-item" onclick="carregarCategoria('SUCOS', this)">Sucos</div>
     <div class="tab-item" onclick="carregarCategoria('DOCES', this)">Doces</div>
+    <div class="tab-item" onclick="carregarCategoria('BOLOS', this)">Bolos</div>
+    <div class="tab-item" onclick="carregarCategoria('BOLO CASEIRINHO', this)">Caseirinhos</div>
     <div class="tab-item" onclick="carregarCategoria('SALGADOS', this)">Salgados</div>
-    <div class="tab-item" onclick="carregarCategoria('SALGADOS POR ENCOMENDA', this)">Encomendas</div>
-    <div class="tab-item" onclick="carregarCategoria('REFRIGERANTES', this)">Bebidas</div>
 </div>
 
 <div id="menu-container"></div>
@@ -133,6 +133,7 @@
             let categoriaAdicional = "";
             const catBusca = categoriaAlvo.toUpperCase();
 
+            // Lógica para aparecer adicionais específicos
             if (catBusca.includes("CAFÉ") || catBusca.includes("BEBIDAS") || catBusca.includes("SUCOS")) {
                 categoriaAdicional = "INCREMENTE SUA BEBIDA";
             } else if (catBusca === "SALGADOS") {
