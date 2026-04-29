@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Menu CoffeArt - Embu das Artes</title>
+    <title>CoffeeArt - Embu das Artes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
-            --cafe-dark: #755437; 
+            --cafe-dark: #4a332d; 
             --cafe-light: #fff4e6; 
-            --accent: #be9b7b; 
+            --accent: #d4a373; 
         }
 
         body {
@@ -19,45 +19,76 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
+        /* HEADER - DESIGN PERSONALIZADO */
         header { 
-            text-align: center; 
-            padding: 20px 10px; 
-            background: var(--cafe-dark); 
-            color: white; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 0;
+            background-color: var(--cafe-light);
         }
 
-        .logo-img { max-width: 70px; height: auto; margin-bottom: 8px; }
-        h1 { margin: 0; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+        .card-unidade {
+            text-decoration: none;
+            width: 90%;
+            max-width: 600px;
+            background-color: var(--cafe-dark);
+            color: var(--accent);
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-        /* GRID DE CATEGORIAS NO TOPO */
+        .texto-header span:first-child {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .texto-header span:last-child {
+            font-size: 15px;
+            color: #ffffff;
+            display: block;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+
+        /* NAVEGAÇÃO DE CATEGORIAS - AJUSTE AUTOMÁTICO LADO A LADO */
         .container-categorias {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Faz os botões quebrarem a linha sozinhos */
             justify-content: center;
-            padding: 15px 5px;
-            gap: 8px;
-            max-width: 600px;
+            gap: 10px;
+            padding: 15px 10px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: #fff;
-            border-bottom: 4px solid var(--accent);
         }
 
         .tab-item {
+            flex: 1 1 auto; /* Permite que o botão cresça para preencher o espaço */
+            min-width: 130px; /* Largura mínima para não esmagar o texto */
+            max-width: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 5px;
-            background: #f8f8f8;
+            padding: 12px 10px;
+            background: white;
             color: var(--cafe-dark);
             border-radius: 8px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
             border: 1px solid #ddd;
-            width: calc(33.33% - 10px); 
             text-align: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: 0.2s;
         }
 
         .tab-item.active {
@@ -66,46 +97,60 @@
             border-color: var(--cafe-dark);
         }
 
-        /* ÁREA DOS PRODUTOS */
+        /* CONTAINER DOS PRODUTOS */
         #menu-container { 
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            padding: 10px 0 40px 0;
+            padding: 10px 0 50px 0;
         }
 
-        .item-card { background: white; border-radius: 10px; margin: 10px 15px; padding: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .item-card { 
+            background: white; 
+            border-radius: 10px; 
+            margin: 12px 15px; 
+            padding: 15px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            border: 1px solid #eee; 
+        }
+
         .topo-item { display: flex; gap: 12px; align-items: center; }
-        .item-foto { width: 65px; height: 65px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+        .item-foto { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
         .item-info { flex-grow: 1; }
-        .item-nome { font-weight: 800; font-size: 0.85rem; color: #333; display: block; margin-bottom: 4px; text-transform: uppercase; }
+        .item-nome { font-weight: 800; font-size: 0.95rem; color: #333; display: block; margin-bottom: 6px; text-transform: uppercase; }
 
-        .linha-variacao { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
-        .var-tamanho { font-size: 0.75rem; color: #777; }
-        .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ddd; margin: 0 6px; }
-        .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 0.85rem; }
+        .linha-variacao { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+        .var-tamanho { font-size: 0.85rem; color: #777; }
+        .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ddd; margin: 0 8px; }
+        .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 0.95rem; }
 
-        .secao-adicionais { margin: 15px; padding: 12px; border-radius: 10px; background: #fff; border: 2px solid #efe4d8; }
-        .titulo-adicionais { margin: 0 0 8px 0; color: var(--cafe-dark); text-align: center; font-size: 0.75rem; text-transform: uppercase; font-weight: 900; }
-        .item-adicional { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: #555; }
+        /* SEÇÃO DE ADICIONAIS */
+        .secao-adicionais { margin: 20px 15px; padding: 15px; border-radius: 10px; background: #fff; border: 2px solid #efe4d8; }
+        .titulo-adicionais { margin: 0 0 10px 0; color: var(--cafe-dark); text-align: center; font-size: 0.8rem; text-transform: uppercase; font-weight: 900; }
+        .item-adicional { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; color: #555; }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="./Logotipo.png" alt="Logo CoffeArt" class="logo-img">
-    <h1>COFFEART - EMBU DAS ARTES</h1>
+    <div class="card-unidade">
+        <div class="texto-header">
+            <span>EMBU DAS ARTES</span>
+            <span>Cardápio Completo</span>
+        </div>
+        <div style="font-size: 28px; font-weight: bold;">➝</div>
+    </div>
 </header>
 
-<div class="container-categorias">
-    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés</div>
+<div class="container-categorias" id="abas-categorias">
+    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés Arábica</div>
     <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Linha Clássica</div>
-    <div class="tab-item" onclick="carregarCategoria('BEBIDAS QUENTES', this)">Quentes</div>
-    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Geladas</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS QUENTES', this)">Bebidas Quentes</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Bebidas Geladas</div>
     <div class="tab-item" onclick="carregarCategoria('SUCOS', this)">Sucos</div>
-    <div class="tab-item" onclick="carregarCategoria('DOCES', this)">Doces</div>
     <div class="tab-item" onclick="carregarCategoria('BOLOS', this)">Bolos</div>
-    <div class="tab-item" onclick="carregarCategoria('BOLO CASEIRINHO', this)">Caseirinhos</div>
+    <div class="tab-item" onclick="carregarCategoria('BOLO CASEIRINHO', this)">Bolo Caseirinho</div>
+    <div class="tab-item" onclick="carregarCategoria('DOCES', this)">Doces</div>
     <div class="tab-item" onclick="carregarCategoria('SALGADOS', this)">Salgados</div>
 </div>
 
@@ -117,11 +162,12 @@
     function limpar(t) { return t ? t.replace(/^"|"$/g, '').replace(/R\$/g, '').trim() : ""; }
 
     async function carregarCategoria(categoriaAlvo, elemento) {
+        // Remove active de todos e coloca no clicado
         document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
         if(elemento) elemento.classList.add('active');
 
         const container = document.getElementById('menu-container');
-        container.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Carregando itens...</p>';
+        container.innerHTML = '<p style="text-align:center; padding:30px; color:#888;">A carregar menu...</p>';
         
         try {
             const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
@@ -133,7 +179,7 @@
             let categoriaAdicional = "";
             const catBusca = categoriaAlvo.toUpperCase();
 
-            // Lógica para aparecer adicionais específicos
+            // Lógica para Adicionais
             if (catBusca.includes("CAFÉ") || catBusca.includes("BEBIDAS") || catBusca.includes("SUCOS")) {
                 categoriaAdicional = "INCREMENTE SUA BEBIDA";
             } else if (catBusca === "SALGADOS") {
@@ -143,22 +189,29 @@
             for (let i = 2; i < rows.length; i++) {
                 if (!rows[i]) continue;
                 const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                if (cols.length < 4) continue;
+
                 const cat = limpar(cols[0]);
                 const prod = limpar(cols[1]);
                 const tam = limpar(cols[2]);
                 const preco = limpar(cols[3]);
                 const foto = limpar(cols[7]);
 
+                // Filtra pela categoria clicada
                 if (cat.toUpperCase() === categoriaAlvo.toUpperCase()) {
                     if (!agrupados[prod]) agrupados[prod] = { nome: prod, foto: foto, variacoes: [] };
                     agrupados[prod].variacoes.push({ t: tam, p: preco });
                 }
+                
+                // Filtra adicionais
                 if (categoriaAdicional && cat.toUpperCase() === categoriaAdicional.toUpperCase()) {
                     adicionais[prod] = { nome: prod, preco: preco };
                 }
             }
 
             container.innerHTML = '';
+            
+            // Renderiza Produtos
             Object.values(agrupados).forEach(item => {
                 let varsHtml = '';
                 item.variacoes.forEach(v => {
@@ -175,19 +228,22 @@
                     </div>`;
             });
 
+            // Renderiza Adicionais se houver
             const listaAdicionais = Object.values(adicionais);
             if (listaAdicionais.length > 0) {
-                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Personalize seu Pedido</h4>`;
+                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Personalize o seu Pedido</h4>`;
                 listaAdicionais.forEach(a => {
                     htmlAdic += `<div class="item-adicional"><span>${a.nome}</span><span style="font-weight:bold; color:var(--cafe-dark);">+ R$ ${a.preco}</span></div>`;
                 });
                 container.innerHTML += htmlAdic + `</div>`;
             }
+            
         } catch (e) {
-            container.innerHTML = '<p style="text-align:center; padding:30px;">Erro ao carregar o menu.</p>';
+            container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar o menu. Verifique a ligação.</p>';
         }
     }
 
+    // Carrega a primeira categoria ao abrir o site
     window.onload = () => {
         carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%');
     };
