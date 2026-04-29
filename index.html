@@ -17,120 +17,152 @@
             padding: 0;
             background-color: var(--cafe-light);
             font-family: 'Segoe UI', Roboto, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        /* HEADER ESTILO LINKTREE */
         header { 
             text-align: center; 
-            padding: 30px 20px; 
-            width: 100%;
-            max-width: 600px;
+            padding: 25px 10px; 
+            background: var(--cafe-dark); 
+            color: white; 
         }
 
-        .logo-img { 
-            max-width: 100px; 
-            height: auto; 
-            border-radius: 50%; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-        }
+        .logo-img { max-width: 80px; height: auto; margin-bottom: 10px; }
+        h1 { margin: 0; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; }
 
-        h1 { 
-            font-size: 1.2rem; 
-            color: var(--cafe-dark); 
-            letter-spacing: 1px; 
-            text-transform: uppercase;
-            margin: 0;
-        }
-
-        /* CONTAINER DOS BOTÕES */
-        .links-container {
-            width: 100%;
-            max-width: 600px;
-            padding: 0 20px 40px 20px;
+        /* LISTA DE CATEGORIAS ESTILO BOTÕES NO CORPO */
+        .container-categorias {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px 10px;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* ESTILO DOS BOTÕES (IGUAL AO SITE DE REFERÊNCIA) */
-        .btn-link {
+        .tab-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 18px;
-            background-color: white;
+            padding: 12px 15px;
+            background: white;
             color: var(--cafe-dark);
-            text-decoration: none;
-            border-radius: 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid rgba(117, 84, 55, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
+            border: 1px solid #ddd;
+            width: calc(50% - 15px); /* Dois botões por linha */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: 0.2s;
         }
 
-        .btn-link:active {
-            transform: scale(0.98);
-            background-color: #fcfcfc;
-        }
-
-        .btn-link i {
-            margin-right: 15px;
-            font-size: 1.2rem;
-            width: 25px;
-            text-align: center;
-        }
-
-        /* BOTÃO DE DESTAQUE (WHATSAPP/PEDIDO) */
-        .btn-pedido {
-            background-color: var(--cafe-dark);
+        .tab-item.active {
+            background: var(--cafe-dark);
             color: white;
-            margin-top: 10px;
+            border-color: var(--cafe-dark);
         }
+
+        /* CONTAINER DOS PRODUTOS */
+        #menu-container { 
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px 0 50px 0;
+        }
+
+        .item-card { background: white; border-radius: 10px; margin: 12px 15px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .topo-item { display: flex; gap: 12px; align-items: center; }
+        .item-foto { width: 75px; height: 75px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+        .item-info { flex-grow: 1; }
+        .item-nome { font-weight: 800; font-size: 0.95rem; color: #333; display: block; margin-bottom: 6px; text-transform: uppercase; }
+
+        .linha-variacao { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+        .var-tamanho { font-size: 0.85rem; color: #777; }
+        .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ddd; margin: 0 8px; }
+        .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 0.95rem; }
+
+        .secao-adicionais { margin: 20px 15px; padding: 15px; border-radius: 10px; background: #fff; border: 2px solid #efe4d8; }
+        .titulo-adicionais { margin: 0 0 10px 0; color: var(--cafe-dark); text-align: center; font-size: 0.8rem; text-transform: uppercase; font-weight: 900; }
+        .item-adicional { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; color: #555; }
     </style>
 </head>
 <body>
 
 <header>
     <img src="./Logotipo.png" alt="Logo CoffeArt" class="logo-img">
-    <h1>CoffeeArt - Embu das Artes</h1>
+    <h1>COFFEART - EMBU DAS ARTES</h1>
 </header>
 
-<div class="links-container">
-    <a href="https://cardapiocoffeeartes.pedidoon.net" class="btn-link btn-pedido" target="_blank">
-        <i class="fab fa-whatsapp"></i> Faça seu Pedido Online
-    </a>
-
-    <div class="btn-link" onclick="window.open('https://cardapiocoffeeartes.pedidoon.net', '_blank')">
-        <i class="fas fa-coffee"></i> Cafés Arábica
-    </div>
-
-    <div class="btn-link" onclick="window.open('https://cardapiocoffeeartes.pedidoon.net', '_blank')">
-        <i class="fas fa-mug-hot"></i> Bebidas Quentes
-    </div>
-
-    <div class="btn-link" onclick="window.open('https://cardapiocoffeeartes.pedidoon.net', '_blank')">
-        <i class="fas fa-ice-cream"></i> Bebidas Geladas
-    </div>
-
-    <div class="btn-link" onclick="window.open('https://cardapiocoffeeartes.pedidoon.net', '_blank')">
-        <i class="fas fa-utensils"></i> Salgados
-    </div>
-
-    <div class="btn-link" onclick="window.open('https://cardapiocoffeeartes.pedidoon.net', '_blank')">
-        <i class="fas fa-cookie"></i> Doces & Sobremesas
-    </div>
-
-    <div class="btn-link" onclick="window.open('https://cardapiocoffeeartes.pedidoon.net', '_blank')">
-        <i class="fas fa-gift"></i> Encomendas Especiais
-    </div>
+<div class="container-categorias" id="abas-categorias">
+    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés Arábica</div>
+    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Linha Clássica</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS QUENTES', this)">Bebidas Quentes</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Bebidas Geladas</div>
+    <div class="tab-item" onclick="carregarCategoria('SUCOS', this)">Sucos</div>
+    <div class="tab-item" onclick="carregarCategoria('CHÁ KAFA', this)">Chá Kafa</div>
+    <div class="tab-item" onclick="carregarCategoria('DOCES', this)">Doces</div>
+    <div class="tab-item" onclick="carregarCategoria('SALGADOS', this)">Salgados</div>
 </div>
 
-</body>
-</html>
+<div id="menu-container"></div>
+
+<script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKD0m6_S6gmLU6rraasr75cUk5Nt2O6Lbsl2v3Lcwj5y0DMlrnuLHo_hzFPT6f3kqzHoUbHY2utFO3/pub?gid=0&single=true&output=csv';
+
+    function limpar(t) { return t ? t.replace(/^"|"$/g, '').replace(/R\$/g, '').trim() : ""; }
+
+    async function carregarCategoria(categoriaAlvo, elemento) {
+        document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
+        if(elemento) elemento.classList.add('active');
+
+        const container = document.getElementById('menu-container');
+        container.innerHTML = '<p style="text-align:center; padding:30px; color:#888;">Carregando...</p>';
+        
+        try {
+            const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
+            const data = await response.text();
+            const rows = data.split(/\r?\n/);
+            
+            const agrupados = {};
+            const adicionais = {};
+            let categoriaAdicional = "";
+            const catBusca = categoriaAlvo.toUpperCase();
+
+            if (catBusca.includes("CAFÉ") || catBusca.includes("BEBIDAS") || catBusca.includes("SUCOS")) {
+                categoriaAdicional = "INCREMENTE SUA BEBIDA";
+            } else if (catBusca === "SALGADOS") {
+                categoriaAdicional = "INCREMENTE SEU SALGADO";
+            }
+
+            for (let i = 2; i < rows.length; i++) {
+                if (!rows[i]) continue;
+                const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const cat = limpar(cols[0]);
+                const prod = limpar(cols[1]);
+                const tam = limpar(cols[2]);
+                const preco = limpar(cols[3]);
+                const foto = limpar(cols[7]);
+
+                if (cat.toUpperCase() === categoriaAlvo.toUpperCase()) {
+                    if (!agrupados[prod]) agrupados[prod] = { nome: prod, foto: foto, variacoes: [] };
+                    agrupados[prod].variacoes.push({ t: tam, p: preco });
+                }
+                if (categoriaAdicional && cat.toUpperCase() === categoriaAdicional.toUpperCase()) {
+                    adicionais[prod] = { nome: prod, preco: preco };
+                }
+            }
+
+            container.innerHTML = '';
+            Object.values(agrupados).forEach(item => {
+                let varsHtml = '';
+                item.variacoes.forEach(v => {
+                    varsHtml += `<div class="linha-variacao"><span class="var-tamanho">${v.t}</span><div class="var-pontos"></div><span class="var-preco">R$ ${v.p}</span></div>`;
+                });
+
+                container.innerHTML += `
+                    <div class="item-card">
+                        <div class="topo-item">
+                            ${item.foto ? `<img src="${item.foto}" class="item-foto" onerror="this.style.display='none'">` : 
+                            '<div class="item-foto" style="display:flex;align-items:center;justify-content:center;background:#f9f9f9
