@@ -19,7 +19,7 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* HEADER - DESIGN PERSONALIZADO */
+        /* HEADER CENTRALIZADO E SEM SETA */
         header { 
             width: 100%;
             display: flex;
@@ -29,40 +29,37 @@
             background-color: var(--cafe-light);
         }
 
-        .card-unidade {
-            text-decoration: none;
+        .card-titulo {
             width: 90%;
             max-width: 600px;
             background-color: var(--cafe-dark);
             color: var(--accent);
-            padding: 18px 25px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center; /* Centraliza todo o texto */
         }
 
-        .texto-header span:first-child {
+        .card-titulo span:first-child {
             font-size: 24px;
             font-weight: bold;
             display: block;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        .texto-header span:last-child {
+        .card-titulo span:last-child {
             font-size: 15px;
             color: #ffffff;
             display: block;
-            margin-top: 4px;
+            margin-top: 5px;
             opacity: 0.9;
         }
 
-        /* NAVEGAÇÃO DE CATEGORIAS - AJUSTE AUTOMÁTICO LADO A LADO */
+        /* NAVEGAÇÃO DE CATEGORIAS - AJUSTE FLEXÍVEL */
         .container-categorias {
             display: flex;
-            flex-wrap: wrap; /* Faz os botões quebrarem a linha sozinhos */
+            flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
             padding: 15px 10px;
@@ -71,8 +68,8 @@
         }
 
         .tab-item {
-            flex: 1 1 auto; /* Permite que o botão cresça para preencher o espaço */
-            min-width: 130px; /* Largura mínima para não esmagar o texto */
+            flex: 1 1 auto;
+            min-width: 130px;
             max-width: 220px;
             display: flex;
             align-items: center;
@@ -97,7 +94,7 @@
             border-color: var(--cafe-dark);
         }
 
-        /* CONTAINER DOS PRODUTOS */
+        /* ÁREA DOS PRODUTOS */
         #menu-container { 
             width: 100%;
             max-width: 600px;
@@ -124,7 +121,6 @@
         .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ddd; margin: 0 8px; }
         .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 0.95rem; }
 
-        /* SEÇÃO DE ADICIONAIS */
         .secao-adicionais { margin: 20px 15px; padding: 15px; border-radius: 10px; background: #fff; border: 2px solid #efe4d8; }
         .titulo-adicionais { margin: 0 0 10px 0; color: var(--cafe-dark); text-align: center; font-size: 0.8rem; text-transform: uppercase; font-weight: 900; }
         .item-adicional { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; color: #555; }
@@ -133,12 +129,9 @@
 <body>
 
 <header>
-    <div class="card-unidade">
-        <div class="texto-header">
-            <span>EMBU DAS ARTES</span>
-            <span>Cardápio Completo</span>
-        </div>
-        <div style="font-size: 28px; font-weight: bold;">➝</div>
+    <div class="card-titulo">
+        <span>EMBU DAS ARTES</span>
+        <span>Cardápio Completo</span>
     </div>
 </header>
 
@@ -162,12 +155,11 @@
     function limpar(t) { return t ? t.replace(/^"|"$/g, '').replace(/R\$/g, '').trim() : ""; }
 
     async function carregarCategoria(categoriaAlvo, elemento) {
-        // Remove active de todos e coloca no clicado
         document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
         if(elemento) elemento.classList.add('active');
 
         const container = document.getElementById('menu-container');
-        container.innerHTML = '<p style="text-align:center; padding:30px; color:#888;">A carregar menu...</p>';
+        container.innerHTML = '<p style="text-align:center; padding:30px; color:#888;">Carregando...</p>';
         
         try {
             const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
@@ -179,7 +171,6 @@
             let categoriaAdicional = "";
             const catBusca = categoriaAlvo.toUpperCase();
 
-            // Lógica para Adicionais
             if (catBusca.includes("CAFÉ") || catBusca.includes("BEBIDAS") || catBusca.includes("SUCOS")) {
                 categoriaAdicional = "INCREMENTE SUA BEBIDA";
             } else if (catBusca === "SALGADOS") {
@@ -197,21 +188,16 @@
                 const preco = limpar(cols[3]);
                 const foto = limpar(cols[7]);
 
-                // Filtra pela categoria clicada
                 if (cat.toUpperCase() === categoriaAlvo.toUpperCase()) {
                     if (!agrupados[prod]) agrupados[prod] = { nome: prod, foto: foto, variacoes: [] };
                     agrupados[prod].variacoes.push({ t: tam, p: preco });
                 }
-                
-                // Filtra adicionais
                 if (categoriaAdicional && cat.toUpperCase() === categoriaAdicional.toUpperCase()) {
                     adicionais[prod] = { nome: prod, preco: preco };
                 }
             }
 
             container.innerHTML = '';
-            
-            // Renderiza Produtos
             Object.values(agrupados).forEach(item => {
                 let varsHtml = '';
                 item.variacoes.forEach(v => {
@@ -228,22 +214,19 @@
                     </div>`;
             });
 
-            // Renderiza Adicionais se houver
             const listaAdicionais = Object.values(adicionais);
             if (listaAdicionais.length > 0) {
-                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Personalize o seu Pedido</h4>`;
+                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Personalize seu Pedido</h4>`;
                 listaAdicionais.forEach(a => {
                     htmlAdic += `<div class="item-adicional"><span>${a.nome}</span><span style="font-weight:bold; color:var(--cafe-dark);">+ R$ ${a.preco}</span></div>`;
                 });
                 container.innerHTML += htmlAdic + `</div>`;
             }
-            
         } catch (e) {
-            container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar o menu. Verifique a ligação.</p>';
+            container.innerHTML = '<p style="text-align:center; padding:50px;">Erro ao carregar o cardápio.</p>';
         }
     }
 
-    // Carrega a primeira categoria ao abrir o site
     window.onload = () => {
         carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%');
     };
