@@ -21,41 +21,43 @@
 
         header { 
             text-align: center; 
-            padding: 25px 10px; 
+            padding: 20px 10px; 
             background: var(--cafe-dark); 
             color: white; 
         }
 
-        .logo-img { max-width: 80px; height: auto; margin-bottom: 10px; }
-        h1 { margin: 0; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+        .logo-img { max-width: 70px; height: auto; margin-bottom: 8px; }
+        h1 { margin: 0; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* LISTA DE CATEGORIAS ESTILO BOTÕES NO CORPO */
+        /* GRID DE CATEGORIAS NO TOPO */
         .container-categorias {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px 10px;
-            gap: 10px;
+            padding: 15px 5px;
+            gap: 8px;
             max-width: 600px;
             margin: 0 auto;
+            background: #fff;
+            border-bottom: 4px solid var(--accent);
         }
 
         .tab-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 15px;
-            background: white;
+            padding: 10px 5px;
+            background: #f8f8f8;
             color: var(--cafe-dark);
-            border-radius: 10px;
-            font-size: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
             border: 1px solid #ddd;
-            width: calc(50% - 15px); /* Dois botões por linha */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: 0.2s;
+            width: calc(33.33% - 10px); /* 3 botões por linha para caberem todos no topo */
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .tab-item.active {
@@ -64,28 +66,28 @@
             border-color: var(--cafe-dark);
         }
 
-        /* CONTAINER DOS PRODUTOS */
+        /* ÁREA DOS PRODUTOS */
         #menu-container { 
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            padding: 10px 0 50px 0;
+            padding: 10px 0 40px 0;
         }
 
-        .item-card { background: white; border-radius: 10px; margin: 12px 15px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .item-card { background: white; border-radius: 10px; margin: 10px 15px; padding: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; }
         .topo-item { display: flex; gap: 12px; align-items: center; }
-        .item-foto { width: 75px; height: 75px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+        .item-foto { width: 65px; height: 65px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
         .item-info { flex-grow: 1; }
-        .item-nome { font-weight: 800; font-size: 0.95rem; color: #333; display: block; margin-bottom: 6px; text-transform: uppercase; }
+        .item-nome { font-weight: 800; font-size: 0.85rem; color: #333; display: block; margin-bottom: 4px; text-transform: uppercase; }
 
-        .linha-variacao { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
-        .var-tamanho { font-size: 0.85rem; color: #777; }
-        .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ddd; margin: 0 8px; }
-        .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 0.95rem; }
+        .linha-variacao { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
+        .var-tamanho { font-size: 0.75rem; color: #777; }
+        .var-pontos { flex-grow: 1; border-bottom: 1px dotted #ddd; margin: 0 6px; }
+        .var-preco { font-weight: bold; color: var(--cafe-dark); font-size: 0.85rem; }
 
-        .secao-adicionais { margin: 20px 15px; padding: 15px; border-radius: 10px; background: #fff; border: 2px solid #efe4d8; }
-        .titulo-adicionais { margin: 0 0 10px 0; color: var(--cafe-dark); text-align: center; font-size: 0.8rem; text-transform: uppercase; font-weight: 900; }
-        .item-adicional { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; color: #555; }
+        .secao-adicionais { margin: 15px; padding: 12px; border-radius: 10px; background: #fff; border: 2px solid #efe4d8; }
+        .titulo-adicionais { margin: 0 0 8px 0; color: var(--cafe-dark); text-align: center; font-size: 0.75rem; text-transform: uppercase; font-weight: 900; }
+        .item-adicional { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: #555; }
     </style>
 </head>
 <body>
@@ -95,15 +97,16 @@
     <h1>COFFEART - EMBU DAS ARTES</h1>
 </header>
 
-<div class="container-categorias" id="abas-categorias">
-    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés Arábica</div>
-    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Linha Clássica</div>
-    <div class="tab-item" onclick="carregarCategoria('BEBIDAS QUENTES', this)">Bebidas Quentes</div>
-    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Bebidas Geladas</div>
+<div class="container-categorias">
+    <div class="tab-item active" onclick="carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%', this)">Cafés</div>
+    <div class="tab-item" onclick="carregarCategoria('LINHA CLÁSSICA COFFEE ART', this)">Clássica</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS QUENTES', this)">Quentes</div>
+    <div class="tab-item" onclick="carregarCategoria('BEBIDAS GELADAS', this)">Geladas</div>
     <div class="tab-item" onclick="carregarCategoria('SUCOS', this)">Sucos</div>
-    <div class="tab-item" onclick="carregarCategoria('CHÁ KAFA', this)">Chá Kafa</div>
     <div class="tab-item" onclick="carregarCategoria('DOCES', this)">Doces</div>
     <div class="tab-item" onclick="carregarCategoria('SALGADOS', this)">Salgados</div>
+    <div class="tab-item" onclick="carregarCategoria('SALGADOS POR ENCOMENDA', this)">Encomendas</div>
+    <div class="tab-item" onclick="carregarCategoria('REFRIGERANTES', this)">Bebidas</div>
 </div>
 
 <div id="menu-container"></div>
@@ -118,7 +121,7 @@
         if(elemento) elemento.classList.add('active');
 
         const container = document.getElementById('menu-container');
-        container.innerHTML = '<p style="text-align:center; padding:30px; color:#888;">Carregando...</p>';
+        container.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Carregando itens...</p>';
         
         try {
             const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
@@ -165,4 +168,28 @@
                     <div class="item-card">
                         <div class="topo-item">
                             ${item.foto ? `<img src="${item.foto}" class="item-foto" onerror="this.style.display='none'">` : 
-                            '<div class="item-foto" style="display:flex;align-items:center;justify-content:center;background:#f9f9f9
+                            '<div class="item-foto" style="display:flex;align-items:center;justify-content:center;background:#f9f9f9"><i class="fas fa-camera" style="color:#ddd"></i></div>'}
+                            <div class="item-info"><span class="item-nome">${item.nome}</span>${varsHtml}</div>
+                        </div>
+                    </div>`;
+            });
+
+            const listaAdicionais = Object.values(adicionais);
+            if (listaAdicionais.length > 0) {
+                let htmlAdic = `<div class="secao-adicionais"><h4 class="titulo-adicionais">✨ Personalize seu Pedido</h4>`;
+                listaAdicionais.forEach(a => {
+                    htmlAdic += `<div class="item-adicional"><span>${a.nome}</span><span style="font-weight:bold; color:var(--cafe-dark);">+ R$ ${a.preco}</span></div>`;
+                });
+                container.innerHTML += htmlAdic + `</div>`;
+            }
+        } catch (e) {
+            container.innerHTML = '<p style="text-align:center; padding:30px;">Erro ao carregar o menu.</p>';
+        }
+    }
+
+    window.onload = () => {
+        carregarCategoria('CAFÉ ESPECIAL ARÁBICA 100%');
+    };
+</script>
+</body>
+</html>
