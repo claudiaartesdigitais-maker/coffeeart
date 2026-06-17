@@ -204,10 +204,11 @@
                     varsHtml += `<div class="linha-variacao"><span class="var-tamanho">${v.t}</span><div class="var-pontos"></div><span class="var-preco">R$ ${v.p}</span></div>`;
                 });
 
+                // TRECHO MODIFICADO PARA COMPATIBILIDADE COM GITHUB
                 container.innerHTML += `
                     <div class="item-card">
                         <div class="topo-item">
-                            ${item.foto ? `<img src="${item.foto}" class="item-foto" onerror="this.style.display='none'">` : 
+                            ${item.foto ? `<img src="${item.foto}" class="item-foto" onerror="this.src='https://via.placeholder.com/150?text=CoffeeArt'">` : 
                             '<div class="item-foto" style="display:flex;align-items:center;justify-content:center;background:#f9f9f9"><i class="fas fa-camera" style="color:#ddd"></i></div>'}
                             <div class="item-info"><span class="item-nome">${item.nome}</span>${varsHtml}</div>
                         </div>
