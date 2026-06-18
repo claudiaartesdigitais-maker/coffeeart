@@ -19,7 +19,7 @@
             font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* HEADER CENTRALIZADO E SEM SETA */
+        /* HEADER CONGELADO NA FRENTE DE TUDO */
         header { 
             width: 100%;
             display: flex;
@@ -27,6 +27,13 @@
             align-items: center;
             padding: 15px 0;
             background-color: var(--cafe-light);
+            
+            /* MÁGICA DO CONGELAMENTO AQUI */
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 99999; /* Força ficar na frente de qualquer imagem ou carrossel */
+            box-shadow: 0 4px 10px rgba(74, 51, 45, 0.1); /* Sombra leve para destacar ao rolar */
         }
 
         .card-titulo {
@@ -37,7 +44,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            text-align: center; /* Centraliza todo o texto */
+            text-align: center;
         }
 
         .card-titulo span:first-child {
@@ -74,43 +81,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 10px;
-            background: white;
-            color: var(--cafe-dark);
-            border-radius: 8px;
-            font-size: 0.75rem;
+            padding: 10px;
+            background: #ffffff;
+            border: 1px solid #efe4d8;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: bold;
-            text-transform: uppercase;
+            color: var(--cafe-dark);
             cursor: pointer;
-            border: 1px solid #ddd;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: 0.2s;
+            transition: all 0.2s ease;
         }
-
         .tab-item.active {
             background: var(--cafe-dark);
-            color: white;
+            color: var(--accent);
             border-color: var(--cafe-dark);
         }
 
-        /* ÁREA DOS PRODUTOS */
-        #menu-container { 
-            width: 100%;
+        /* CONFIGURAÇÃO DOS CARDS DE PRODUTO */
+        #menu-container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 10px 0 50px 0;
+            padding: 10px;
         }
-
-        .item-card { 
-            background: white; 
-            border-radius: 10px; 
-            margin: 12px 15px; 
-            padding: 15px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-            border: 1px solid #eee; 
+        .item-card {
+            background: #ffffff;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #efe4d8;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
-
         .topo-item { display: flex; gap: 12px; align-items: center; }
         .item-foto { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
         .item-info { flex-grow: 1; }
@@ -204,7 +204,6 @@
                     varsHtml += `<div class="linha-variacao"><span class="var-tamanho">${v.t}</span><div class="var-pontos"></div><span class="var-preco">R$ ${v.p}</span></div>`;
                 });
 
-                // TRECHO MODIFICADO PARA COMPATIBILIDADE COM GITHUB
                 container.innerHTML += `
                     <div class="item-card">
                         <div class="topo-item">
